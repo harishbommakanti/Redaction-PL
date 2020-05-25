@@ -1,0 +1,4 @@
+This page will document the specific motivations and language features that Redaction wil jope to have.
+
+Languages to be borrowed from:
+Java, Python 2/3, Kotlin, nim...
