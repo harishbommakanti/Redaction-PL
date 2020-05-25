@@ -51,3 +51,39 @@ f) comment declaration
 	- Feature from Java
 	- "//" for single-line comments
 	- "/* ... */" for multi-line comments 
+
+g) Loops 
+	- Keyword "loop" reserved
+	- Keyword "while" reserved
+	- Keyword "switch" reserved
+	- Example
+		EX) loop i from 1 to 9 {
+			\p("$i")
+		    } //output : 123456789
+		
+		EX1) let i = 1 type int	
+		     while i < 10 {
+		     	\p("$i")
+			i++
+		     } //output : 123456789
+		
+		EX2) switch case loop is taken from Java with syntactic modifications
+		
+h) Conditional Statements
+	- Keyword "and" reserved
+	- Keyword "or" reserved
+	- Keyword "!" reserved
+	- Keywords "<","<=",">=",">","==" reserved
+	- Keyword "true" reserved
+	- Keyword "false" reserved
+	- Keywords "if","elif", and "else" reserved 
+	- Example
+		EX) if a <= 5 and !c == false or b == "Hello World" {
+		    	return true
+		    }
+		    elif a > 5 {
+		    	return false
+		    }
+		    else {
+		    	return true
+		    }
