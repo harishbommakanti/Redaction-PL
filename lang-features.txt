@@ -1,4 +1,14 @@
 This page will document the specific motivations and language features that Redaction wil jope to have.
 
 Languages to be borrowed from:
-Java, Python 2/3, Kotlin, nim...
+Java, Python 2/3, Kotlin, nim..
+
+- static typing and type safety (borrowing from Java and Kotlin)
+	- should try to prevent null pointer exceptions
+	- should stay away from python's type inference
+
+- (probably a lot later) borrow OOP from nim/kotlin
+	- 'data class' format from kotlin is nice etc
+- stay away from python's dependency on tabs, everything should probably be able to mesh onto one line
+- would be cool to incorporate functional programming inspired from python/haskell
+
