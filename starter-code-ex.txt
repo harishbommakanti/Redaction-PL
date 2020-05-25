@@ -87,3 +87,12 @@ h) Conditional Statements
 		    else {
 		    	return true
 		    }
+
+i) Type inferencing
+	- type inferencing and casting system will be borrowed from Java
+	- Python's syntax for casting will be followed
+	- Example
+		EX) let a = 5.0 type double
+		    let b = int(a) type int //throws loss of precision error
+	            let b = 5 type int
+	            let c = char(b) type char //good
