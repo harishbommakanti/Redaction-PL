@@ -2,8 +2,8 @@ Syntax for Redaction
 	- Forgo the use of tabs and spaces
 	- Forgo the use of semicolons
 	- File extenstions for redaction are ".redact"
-	- primitive types are boolean, char, byte, short, int, ling, float, and double
-	- non-primitive types are Strings, Array, etc.
+	- primitive types are boolean, char, and int (more to be supported)
+	- non-primitive types are Strings, Array, etc. (to be supported)
 
 a) Class Declaration
 	- Keyword "class" reserved 
