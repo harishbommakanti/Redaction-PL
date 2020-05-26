@@ -8,7 +8,7 @@ public class Lexer
 {
     //private BufferedReader br = null;
     private StringBuilder str = new StringBuilder();
-    private Queue<Token> tokenList = new PriorityQueue();
+    private Queue<Token> tokenList = new PriorityQueue<Token>();
 
     public Lexer(String filepath) throws IOException
     {
@@ -25,8 +25,8 @@ public class Lexer
         String rawstring = new String(rawdata);
 
         //remove all whitespaces and new lines
-        rawstring = rawstring.replace(" ","").trim().replace("\n","");
-
+        rawstring = rawstring.trim().replace("\n"," $ "); //adds $ for every line in the program
+        //.replace(" ","") (removed creating spaces b/w each word)
         str.append(rawstring);
 
         //test
