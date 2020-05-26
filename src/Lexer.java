@@ -1,11 +1,14 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Lexer
 {
     //private BufferedReader br = null;
     private StringBuilder str = new StringBuilder();
+    private Queue<Token> tokenList = new PriorityQueue();
 
     public Lexer(String filepath) throws IOException
     {
@@ -13,6 +16,7 @@ public class Lexer
         //this.br = br;
 
         readfile(filepath);
+        //processString();
     }
 
     private void readfile(String filepath) throws IOException
@@ -26,6 +30,16 @@ public class Lexer
         str.append(rawstring);
 
         //test
-        //System.out.println(str.toString());
+        System.out.println(str.toString());
+    }
+
+    //this parses the string formed in readfile and pushes tokens in the queue
+    private void processString()
+    {
+        //assume the structure of the program is good for now. if its not, create errors and exceptions later
+        tokenList.add(new Token(TokenType.PROGRAM_BEGIN,"{begin}"));
+
+        str.replace(0,6,""); //take the begin token out after parsing it
+
     }
 }
