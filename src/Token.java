@@ -59,8 +59,10 @@ public class Token
             mapping.put(tokenName,tokenContent);
         }
 
+        /*
         //   check
         for (String s:mapping.keySet())
             System.out.println("key: " + s + "\t value: " + mapping.get(s));
+         */
     }
 }

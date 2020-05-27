@@ -7,12 +7,10 @@ public class Lexer
 {
     //for holding a 1 line representation of the source code
     private StringBuilder str = new StringBuilder();
+    List<String> list = new ArrayList<String>();
 
     //the result of Lexer.java
     private ArrayList<Token> tokenList = new ArrayList<Token>();
-    List<String> list = new ArrayList<String>();
-    
-    //Map<String,Token> map = Token.getMap();
 
     public Lexer(String filepath) throws IOException
     {
