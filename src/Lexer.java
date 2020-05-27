@@ -8,6 +8,9 @@ public class Lexer
     private StringBuilder str = new StringBuilder();
     private ArrayList<Token> tokenList = new ArrayList<Token>();
     List<String> list = new ArrayList<String>();
+
+    //for loading in the names from tokenNames.txt
+    Set<String> tokenNames = new HashSet();
     
     Map<String,Token> map = Token.getMap();
 
