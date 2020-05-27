@@ -4,6 +4,7 @@
 let ~ LET
 int ~ INT
 char ~ CHAR
+String ~ STRING
 const ~ CONST
 type ~ TYPE
 = ~ ASSIGNMENT_EQUALS

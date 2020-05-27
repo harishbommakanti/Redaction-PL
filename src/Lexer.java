@@ -46,26 +46,34 @@ public class Lexer
             String [] arr = list.get(i).split(" ");
             for(int j = 0; j < arr.length; j++) 
             {
-                //System.out.println(mapping.containsValue(arr[j]) + " " + arr[j]);
                 if(!mapping.containsValue(arr[j]))
                 {
-                    //it is an IDENTIFIER, INT_LITERAL, CHAR_LITERAL, or STRING_LITERAL
-                    //deal with the latter 2 later
                     //case of it being an integer
                     boolean isInt = false;
                     try {
                         int int_literal = Integer.parseInt(arr[j]);
                         isInt = true; //if it gets to this point, there was no error, so isInt = true
                     } catch (NumberFormatException e) {}
-
                     if (isInt)
                     {
                         tokenList.add(new Token("INT_LITERAL",arr[j]));
-                    } else
+                    } 
+                    //case of it being a String
+                    else if(arr[j].charAt(0) == '"' && arr[j].charAt(arr[j].length()-1) == '"')
                     {
+                        tokenList.add(new Token("STRING_LITERAL",arr[j]));
+                    }
+                    //case of it being a char                   
+                    else if(arr[j].charAt(0) == '\'' && arr[j].charAt(arr[j].length()-1) == '\'')
+                    {
+                        tokenList.add(new Token("CHAR_LITERAL",arr[j]));
+                    }
+                    else
+                    {
+                        //if not identified as an int, String, or char, it must be a indentifier
+                        //however, logic to be added to verify if identifier name is valid
                         tokenList.add(new Token("IDENTIFIER",arr[j]));
                     }
-                    //TODO deal with cases of it being a char literal or string literal
                 }
                 else 
                 {

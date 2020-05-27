@@ -2,4 +2,6 @@
 let a = 4 type int
 let b = 6 type int
 let c = a + b type int
+let d = "hello" type String
+let e = 'bye' type char
 {end} 
