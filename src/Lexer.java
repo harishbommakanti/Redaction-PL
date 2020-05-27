@@ -98,4 +98,9 @@ public class Lexer
     {
         return tokenList;
     }
+
+    //will go through the token list and inert variable/functions names wherever appropriate
+    public void insertAllSymbolTables(SymbolTable st)
+    {
+    }
 }

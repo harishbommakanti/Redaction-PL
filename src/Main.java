@@ -11,5 +11,9 @@ public class Main
         String filepath = "src/testcode.redact";
         Lexer lex = new Lexer(filepath);
         List<Token> tokenList = lex.tokenize();
+
+        //Need to insert values into the symbolTable hierarchy now
+        SymbolTable root = new SymbolTable("Global");
+        lex.insertAllSymbolTables(root); //next step
     }
 } 
