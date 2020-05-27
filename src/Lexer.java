@@ -102,5 +102,11 @@ public class Lexer
     //will go through the token list and inert variable/functions names wherever appropriate
     public void insertAllSymbolTables(SymbolTable st)
     {
+        for (int i = 0; i < tokenList.size(); i++)
+        {
+            Token currToken = tokenList.get(i);
+            if (currToken.name.equals("PROGRAM_BEGIN") || currToken.name.equals("PROGRAM_END")) //these tokens aren't really important for symbol tables
+                continue;
+        }
     }
 }
