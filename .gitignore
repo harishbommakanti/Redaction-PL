@@ -5,3 +5,4 @@
 #java files
 out/
 *.class
+.DS_Store
