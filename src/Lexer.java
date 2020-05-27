@@ -17,8 +17,9 @@ public class Lexer
     public Lexer(String filepath) throws IOException
     {
         readSourceCode(filepath);
-        //preProcessString();
-        //processList();
+        preProcessString();
+        processList();
+        printTokenization();
     }
 
     private void readSourceCode(String filepath) throws IOException
@@ -54,22 +55,43 @@ public class Lexer
             String [] arr = list.get(i).split(" ");
             for(int j = 0; j < arr.length; j++) 
             {
-                if(map.get(arr[j]) == null)
+                if(Token.mapping.containsKey(arr[j]))
                 {
-                    //logic to be added
-                    tokenList.add(Token.IDENTIFIER);    
+                    //it is an IDENTIFIER, INT_LITERAL, CHAR_LITERAL, or STRING_LITERAL
+                    //deal with the latter 2 later
+
+                    //case of it being an integer
+                    boolean isInt = false;
+                    try {
+                        int int_literal = Integer.parseInt(arr[j]);
+                        isInt = true; //if it gets to this point, there was no error, so isInt = true
+                    } catch (NumberFormatException e) {}
+
+                    if (isInt)
+                    {
+                        tokenList.add(new Token("INT_LITERAL",arr[j]));
+                    } else
+                    {
+                        tokenList.add(new Token("IDENTIFIER",arr[j]));
+                    }
+
+                    //TODO deal with cases of it being a char literal or string literal
                 }
                 else 
                 {
-                    tokenList.add(map.get(arr[j]));
+                    //it was found in the mapping --> simple search of the hashmap in the token class
+                    tokenList.add(new Token(arr[j]));
                 }
             }
         }
-       
+    }
+
+    private void printTokenization()
+    {
         //print out index, token, and token identity
-        for(int z = 0; z < tokenList.size(); z++) 
+        for(Token t : tokenList)
         {
-            System.out.println(z+ ") "+ tokenList.get(z)+ " : "+ Token.retIdentity(tokenList.get(z)));
+            System.out.println("name: " + t.name + "\tcontent: " + t.content);
         }
 
         //Test to print queue key and values
