@@ -1,78 +1,49 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 
-public enum Token
+public class Token
 {
-    IDENTIFIER(" "), //this is like function names or var names
-                        //not functional at the moment
+    public String name = null;
+    public String content = null;
 
-    //Variable assignment
-    LET("let"),
-    INT("int"),
-    CHAR("char"),
-    CONST("const"),
-    TYPE("type"),
-    ASSIGNMENT_EQUALS("="),
-    LITERAL("5"),
+    //for loading in the names from tokenNames.txt
+    private static Set<String> tokenNames = new HashSet();
 
-    //Operators
-    PLUS("+"),
-    MINUS("-"),
-    DIVIDE("/"),
-    MULTIPLY("*"),
-    MODULUS("%"),
-
-    //Conditionals
-    GREATER_THAN(">"),
-    GREATER_OR_EQUAL_TO(">="),
-    LESS_THAN("<"),
-    LESS_OR_EQUAL_TO("<="),
-    NOT("!"),
-    CONDITIONAL_EQUALS("=="),
-
-    //Program control
-    IF("if"),
-    ELSE("else"),
-    ELIF("elif"),
-    LOOP("loop"),
-    WHILE("while"),
-    PROGRAM_BEGIN("{begin}"),
-    PROGRAM_END("{end}"),
-    COMMENT_START("/*"),
-    COMMENT_END("*/"),
-
-    //Miscellaneous symbols
-    DOLLAR_SIGN("$"),
-    OPEN_BRACKET("{"),
-    CLOSE_BRACKET("}"),
-    LEFT_PAREN("("),
-    RIGHT_PAREN(")");
-
-    private String identifier;
-    private static final Map<String, Token> map = new HashMap<>();
-
-    private Token(String identifier) {
-        this.identifier = identifier;
+    public Token(String name, String content)
+    {
+        this.name = name;
+        this.content = content;
     }
 
     static {
-        for (Token toke : Token.values()) {
-            map.put(toke.getIdentifier(), toke);
-        } 
+        //initialize the hashset
+        String filepath = "src/tokenNames.txt";
+        try {
+            setTokenNames(filepath);
+        } catch (IOException e) {}
     }
 
-    public static Map<String, Token> getMap() {
-        return map;
+    private static void setTokenNames(String filepath) throws IOException
+    {
+        byte[] rawdata = Files.readAllBytes(Paths.get(filepath));
+        String rawstring = new String(rawdata);
+
+        String[] lineDelimited = rawstring.split("\n");
+
+        for (String line: lineDelimited)
+        {
+            line = line.trim();
+            if (line.startsWith("#") || line.length()==0) continue; // # is like a comment in the text file, skip blank lines as well
+
+            tokenNames.add(line);
+        }
+
+        /*   check
+        for (String s:tokenNames)
+            System.out.println(s);
+         */
     }
-
-    private String getIdentifier() {
-        return identifier;
-    }
-
-    public static String retIdentity(Token t) {
-        return t.identifier;
-    }
-
-
-
 }

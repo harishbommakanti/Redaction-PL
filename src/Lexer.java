@@ -5,23 +5,23 @@ import java.util.*;
 
 public class Lexer
 {
+    //for holding a 1 line representation of the source code
     private StringBuilder str = new StringBuilder();
+
+    //the result of Lexer.java
     private ArrayList<Token> tokenList = new ArrayList<Token>();
     List<String> list = new ArrayList<String>();
-
-    //for loading in the names from tokenNames.txt
-    Set<String> tokenNames = new HashSet();
     
-    Map<String,Token> map = Token.getMap();
+    //Map<String,Token> map = Token.getMap();
 
     public Lexer(String filepath) throws IOException
     {
-        readfile(filepath);
-        preProcessString();
-        processList();
+        readSourceCode(filepath);
+        //preProcessString();
+        //processList();
     }
 
-    private void readfile(String filepath) throws IOException
+    private void readSourceCode(String filepath) throws IOException
     {
         byte[] rawdata = Files.readAllBytes(Paths.get(filepath));
         String rawstring = new String(rawdata);
