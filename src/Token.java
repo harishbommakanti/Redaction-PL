@@ -10,7 +10,7 @@ public class Token
     public String content = null;
 
     //for loading in the mapping from tokenMapping.txt
-    public static Map<String,String> mapping = new HashMap();
+    private static Map<String,String> mapping = new HashMap<String,String>();
 
     //constructor for user defined tokens like function names or literals
     public Token(String name, String content)
@@ -30,7 +30,8 @@ public class Token
     {
         //the symbol is found in the hashmap
         this.content = symbol;
-        this.name = mapping.get(symbol);
+        Object o = symbol;
+        this.name = getKeyFromValue(mapping,o);
     }
 
     static {
@@ -41,6 +42,7 @@ public class Token
         } catch (IOException e) {}
     }
 
+    //sets the map to have the key and value in the correct spot
     private static void setTokenMapping(String filepath) throws IOException
     {
         byte[] rawdata = Files.readAllBytes(Paths.get(filepath));
@@ -58,11 +60,20 @@ public class Token
 
             mapping.put(tokenName,tokenContent);
         }
-
-        /*
-        //   check
-        for (String s:mapping.keySet())
-            System.out.println("key: " + s + "\t value: " + mapping.get(s));
-         */
     }
+    //allows to get key from give value, O(n)
+    private static String getKeyFromValue(Map<String, String> mapping2, Object value) {
+        for (Object o : mapping2.keySet()) {
+            if (mapping2.get(o).equals(value))
+            return o.toString();
+        }
+        return null;
+    }
+
+    //returns map to Lexer class
+    public static Map<String,String> retMap()
+    {
+        return mapping;
+    }
+
 }

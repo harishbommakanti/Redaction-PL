@@ -1,5 +1,5 @@
 {begin}
-let a = 5 type int
-let b = 5 type int
+let a = 4 type int
+let b = 6 type int
 let c = a + b type int
 {end} 
