@@ -58,7 +58,7 @@ public enum Token
     static {
         for (Token toke : Token.values()) {
             map.put(toke.getIdentifier(), toke);
-        }
+        } 
     }
 
     public static Map<String, Token> getMap() {

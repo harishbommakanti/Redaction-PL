@@ -15,6 +15,6 @@ Java, Python 2/3, Kotlin, nim..
 - (probably a lot later) borrow OOP from nim/kotlin
 	- 'data class' format from kotlin is nice etc
 - stay away from python's dependency on tabs, everything should probably be able to mesh onto one line
-- would be cool to incorporate functional programming inspired from python/haskell
+- would be cool to incorporate functional programming inspired from python/haskell 
 
 

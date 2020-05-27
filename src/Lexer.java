@@ -47,7 +47,7 @@ public class Lexer
         
         //adds all tokens to arraylist
         for(int i = 0; i < list.size(); i++) 
-        {
+        { 
             String [] arr = list.get(i).split(" ");
             for(int j = 0; j < arr.length; j++) 
             {

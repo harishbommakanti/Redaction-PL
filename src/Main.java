@@ -10,4 +10,4 @@ public class Main
         String filepath = "src/testcode.redact";
         Lexer lex = new Lexer(filepath);
     }
-}
+} 
