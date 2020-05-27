@@ -41,3 +41,6 @@ $ ~ DOLLAR_SIGN
 } ~ CLOSE_BRACKET
 ( ~ LEFT_PAREN
 ) ~ RIGHT_PAREN
+
+#Functions and OOP
+func ~ FUNCTION

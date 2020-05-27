@@ -18,7 +18,7 @@ public class Lexer
         readSourceCode(filepath);
         preProcessString();
         processList();
-        printTokenization();
+        //printTokenization();
     }
 
     private void readSourceCode(String filepath) throws IOException
@@ -91,5 +91,11 @@ public class Lexer
         {
             System.out.println("name: " + t.name + "\tcontent: " + t.content);
         }
+    }
+
+    //the result of the lexing phase: returns a list of tokens
+    public ArrayList<Token> tokenize()
+    {
+        return tokenList;
     }
 }
