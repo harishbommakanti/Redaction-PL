@@ -102,11 +102,54 @@ public class Lexer
     //will go through the token list and inert variable/functions names wherever appropriate
     public void insertAllSymbolTables(SymbolTable st)
     {
+        SymbolTable currentSymbolTable = st;
         for (int i = 0; i < tokenList.size(); i++)
         {
             Token currToken = tokenList.get(i);
             if (currToken.name.equals("PROGRAM_BEGIN") || currToken.name.equals("PROGRAM_END")) //these tokens aren't really important for symbol tables
                 continue;
+
+            //initialization of a variable
+            if (currToken.name.equals("LET"))
+            {
+                Token identifierToken = tokenList.get(i+1);
+                String identifierName = identifierToken.name;
+                //token at i+2 will be an = sign, irrelevant
+
+                //it may be like 'let a = b + c / d' : the value of the array would be more than just a literal etc
+                List<Token> identifierValueTokens = new ArrayList<Token>();
+                int tempIndex = i+3;
+                Token tempToken = tokenList.get(tempIndex);
+                while(!tempToken.name.equals("TYPE")) //add value tokens to the identifierValueTokens list while it doesnt move on to the type signature
+                {
+                    identifierValueTokens.add(tempToken);
+                    tempIndex++;
+                }
+
+                //now, identifierValueTokens has all the tokens to assign to the current identifier
+                //token at tempIndex will now be TYPE, so look at index (tempIndex+1)
+                String type = tokenList.get(tempIndex+1).name;
+
+                //if the type is a char literal or string,
+                String value = "";
+                if (type.equals("CHAR"))
+                    value = calculateCharExpression(identifierValueTokens); //TODO
+                else if (type.equals("STRING"))
+                    value = calculateStringExpression(identifierValueTokens); //TODO
+                else //its an it
+                    value = calculateMathExpression(identifierValueTokens); //TODO
+
+
+
+                //at the very end, after all that parsing is done, add it to the current symbol table
+                Map<String,String> newEntry = new HashMap();
+                newEntry.put("type",type);
+                newEntry.put("value",value);
+                currentSymbolTable.data.put(identifierName,newEntry);
+
+                //update i to go to the next statement
+                i = tempIndex + 2;
+            }
         }
     }
 }
