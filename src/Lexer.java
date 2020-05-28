@@ -99,6 +99,9 @@ public class Lexer
         return tokenList;
     }
 
+
+    // \/ \/ \/ is part of the Parser, not even needed in the Lexer
+    /*
     //will go through the token list and inert variable/functions names wherever appropriate
     public void insertAllSymbolTables(SymbolTable st)
     {
@@ -152,4 +155,5 @@ public class Lexer
             }
         }
     }
+     */
 }
