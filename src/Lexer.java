@@ -18,7 +18,7 @@ public class Lexer
         readSourceCode(filepath);
         preProcessString();
         processList();
-        //printTokenization();
+        printTokenization();
     }
 
     private void readSourceCode(String filepath) throws IOException
@@ -46,34 +46,10 @@ public class Lexer
             String [] arr = list.get(i).split(" ");
             for(int j = 0; j < arr.length; j++) 
             {
+
                 if(!mapping.containsValue(arr[j]))
                 {
-                    //case of it being an integer
-                    boolean isInt = false;
-                    try {
-                        int int_literal = Integer.parseInt(arr[j]);
-                        isInt = true; //if it gets to this point, there was no error, so isInt = true
-                    } catch (NumberFormatException e) {}
-                    if (isInt)
-                    {
-                        tokenList.add(new Token("INT_LITERAL",arr[j]));
-                    } 
-                    //case of it being a String
-                    else if(arr[j].charAt(0) == '"' && arr[j].charAt(arr[j].length()-1) == '"')
-                    {
-                        tokenList.add(new Token("STRING_LITERAL",arr[j]));
-                    }
-                    //case of it being a char                   
-                    else if(arr[j].charAt(0) == '\'' && arr[j].charAt(arr[j].length()-1) == '\'')
-                    {
-                        tokenList.add(new Token("CHAR_LITERAL",arr[j]));
-                    }
-                    else
-                    {
-                        //if not identified as an int, String, or char, it must be a indentifier
-                        //however, logic to be added to verify if identifier name is valid
-                        tokenList.add(new Token("IDENTIFIER",arr[j]));
-                    }
+                    recurse(arr[j], 1);                    
                 }
                 else 
                 {
@@ -82,6 +58,64 @@ public class Lexer
                 }
             }
         }
+    }
+
+    private void addToken(String str)
+    {
+        boolean isInt = false;
+        try 
+        {
+            int int_literal = Integer.parseInt(str);
+            isInt = true; //if it gets to this point, there was no error, so isInt = true
+        } 
+        catch (NumberFormatException e) {}
+        if (isInt)
+        {
+            tokenList.add(new Token("INT_LITERAL",str));
+        } 
+        //case of it being a String
+        else if(str.charAt(0) == '"' && str.charAt(str.length()-1) == '"')
+        {
+            tokenList.add(new Token("STRING_LITERAL",str));
+        }
+        //case of it being a char                   
+        else if(str.charAt(0) == '\'' && str.charAt(str.length()-1) == '\'')
+        {
+            tokenList.add(new Token("CHAR_LITERAL",str));
+        }
+        else
+        {
+            //if not identified as an int, String, or char, it must be a indentifier
+            //however, logic to be added to verify if identifier name is valid
+            tokenList.add(new Token("IDENTIFIER",str));
+        }
+    }
+
+
+    private void recurse(String str, int index)
+    {
+        if (index == -1)
+        {
+            addToken(str);
+            return;
+        } 
+        else
+        {
+            recurse(str.substring(0,index),findIndexOfSymbol(str.substring(0,index)));
+            addToken(str);
+            recurse(str.substring(index+1),findIndexOfSymbol(str.substring(index+1)));
+        }
+    }
+
+
+    private int findIndexOfSymbol(String str)
+    {
+        for(int i = 0; i < str.length(); i++)
+        {
+            if(mapping.containsValue(str.substring(i,i+1)))
+                return i;
+        }
+        return -1;
     }
 
     //print out index, token, and token identity
@@ -98,6 +132,53 @@ public class Lexer
     {
         return tokenList;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // \/ \/ \/ is part of the Parser, not even needed in the Lexer
