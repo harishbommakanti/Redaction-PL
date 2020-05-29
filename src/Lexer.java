@@ -18,7 +18,7 @@ public class Lexer
         readSourceCode(filepath);
         preProcessString();
         processList();
-        printTokenization();
+        //printTokenization();
     }
 
     //loads source code data into str
@@ -173,10 +173,11 @@ public class Lexer
     //print out index, token, and token identity
     private void printTokenization()
     {
-       for(Token t : tokenList)
+        System.out.println(tokenList.toString());
+       /*for(Token t : tokenList)
         {
             System.out.println("name: " + t.name + "\tcontent: " + t.content);
-        }
+        }*/
     }
 
     //the result of the lexing phase: returns a list of tokens

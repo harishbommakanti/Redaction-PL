@@ -70,6 +70,11 @@ public class Token
         return null;
     }
 
+    public static String toString(Token t)
+    {
+        return t.content;
+    }
+
     //returns map to Lexer class
     public static Map<String,String> retMap()
     {

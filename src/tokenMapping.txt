@@ -8,6 +8,7 @@ bool ~ BOOLEAN
 String ~ STRING
 const ~ CONST
 type ~ TYPE
+double ~ DOUBLE
 = ~ ASSIGNMENT_EQUALS
 
 #Operators
