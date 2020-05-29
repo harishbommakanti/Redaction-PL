@@ -15,7 +15,7 @@ public class Main
     public static void main(String[] args) throws IOException
     {
         //stage 1 of the compiler is the Lexer, which converts the input program into a sequence of tokens
-        String filepath = "src/testcode.redact";
+        String filepath = "src/testcode1.redact";
         Lexer lex = new Lexer(filepath);
         List<Token> tokenList = lex.tokenize();
     }

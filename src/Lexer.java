@@ -21,6 +21,7 @@ public class Lexer
         printTokenization();
     }
 
+    //loads source code data into str
     private void readSourceCode(String filepath) throws IOException
     {
         byte[] rawdata = Files.readAllBytes(Paths.get(filepath));
@@ -43,13 +44,17 @@ public class Lexer
         //adds all tokens to arraylist
         for(int i = 0; i < list.size(); i++) 
         { 
-            String [] arr = list.get(i).split(" ");
+            String [] arr = list.get(i).split(" "); //split tokens based on " " to seperate things like 'type' and 'int' and identifiers/literals
             for(int j = 0; j < arr.length; j++) 
             {
 
-                if(!mapping.containsValue(arr[j]))
+                if(!mapping.containsValue(arr[j])) //if the token isn't in the mapping: its a identifier or literal
                 {
-                    recurse(arr[j], 1);                    
+                    //need to deal with the case of it being a complex expression: aka `let a = b+c/d type int`
+
+                    int indexOfFirstSymbol = findIndexOfSymbol(arr[j]); //find index of first symbol
+                    arr[j] = arr[j].replace(" ",""); //remove whitespace within the string to make life easier
+                    breakDownExpression(arr[j], indexOfFirstSymbol); //basically do in order transversal to get tokens in the right order
                 }
                 else 
                 {
@@ -60,24 +65,31 @@ public class Lexer
         }
     }
 
+    //meant for looking at user created expressions (identifiers/character literals) and adding them to tokenList
     private void addToken(String str)
     {
+        if (str.length() == 0) return; //case of "" being passed in as a string
+
+        //case of an integer literal
         boolean isInt = false;
-        try 
+        try
         {
             int int_literal = Integer.parseInt(str);
             isInt = true; //if it gets to this point, there was no error, so isInt = true
-        } 
-        catch (NumberFormatException e) {}
+        } catch (NumberFormatException e) {}
         if (isInt)
         {
-            tokenList.add(new Token("INT_LITERAL",str));
-        } 
+            tokenList.add(new Token("INT_LITERAL", str));
+        }
+
+
         //case of it being a String
         else if(str.charAt(0) == '"' && str.charAt(str.length()-1) == '"')
         {
             tokenList.add(new Token("STRING_LITERAL",str));
         }
+
+
         //case of it being a char                   
         else if(str.charAt(0) == '\'' && str.charAt(str.length()-1) == '\'')
         {
@@ -92,7 +104,10 @@ public class Lexer
     }
 
 
-    private void recurse(String str, int index)
+    //keeps splitting the input string into 2 parts and recurse over each part until only strings
+    //without symbols are found. the symbols are added to the token list and the identifiers/literals are
+    //also added in correct order
+    private void breakDownExpression(String str, int index)
     {
         if (index == -1)
         {
@@ -101,13 +116,13 @@ public class Lexer
         } 
         else
         {
-            recurse(str.substring(0,index),findIndexOfSymbol(str.substring(0,index)));
-            addToken(str);
-            recurse(str.substring(index+1),findIndexOfSymbol(str.substring(index+1)));
+            breakDownExpression(str.substring(0,index),findIndexOfSymbol(str.substring(0,index)));
+            tokenList.add(new Token(str.substring(index,index+1)));
+            breakDownExpression(str.substring(index+1),findIndexOfSymbol(str.substring(index+1)));
         }
     }
 
-
+    //returns the index of the first occurence of a symbol, or -1 if no index was found
     private int findIndexOfSymbol(String str)
     {
         for(int i = 0; i < str.length(); i++)
@@ -132,56 +147,9 @@ public class Lexer
     {
         return tokenList;
     }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // \/ \/ \/ is part of the Parser, not even needed in the Lexer
+// \/ \/ \/ is part of the Parser, not even needed in the Lexer
     /*
     //will go through the token list and inert variable/functions names wherever appropriate
     public void insertAllSymbolTables(SymbolTable st)
@@ -237,4 +205,3 @@ public class Lexer
         }
     }
      */
-}
