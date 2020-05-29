@@ -1,7 +1,7 @@
 {begin}
-let a = 4 type int
-let b = 6 type int
-let c = a + b type int
-let d = "hello" type String
-let e = 'bye' type char
+let a = 4 int
+let b = 6 int
+let c = a + b int
+let d = "hello" String
+let e = 'bye' char
 {end} 

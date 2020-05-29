@@ -48,21 +48,58 @@ public class Lexer
             for(int j = 0; j < arr.length; j++) 
             {
 
-                if(!mapping.containsValue(arr[j])) //if the token isn't in the mapping: its a identifier or literal
+                String curr = arr[j];
+                //special cases to consider before anything else: operators with length 2 like ==, <=, >=
+                //assume the programmer has simple code and only one of these operators appear per statement
+                int symbolIndex = -1;
+                String symbol = "";
+                if (curr.contains("=="))
+                {
+                    symbolIndex = curr.indexOf("==");
+                    symbol = "==";
+                } else if (curr.contains(">="))
+                {
+                    symbolIndex = curr.indexOf(">=");
+                    symbol = ">=";
+                } else if (curr.contains("<="))
+                {
+                    symbolIndex = curr.indexOf("<=");
+                    symbol = "<=";
+                }
+
+                if (symbolIndex != -1) //if one of the 3 special symbols was found
+                {
+                    detectForSymbolsAndBreakDownExp(curr.substring(0,symbolIndex)); //looks at left substring
+                    tokenList.add(new Token(symbol)); //add token for symbol
+                    detectForSymbolsAndBreakDownExp(curr.substring(symbolIndex+2)); //looks at right substring, needs +2 as the length of the character is 2
+
+                    continue; //don't do the other conditional checks, move on to next token
+                }
+
+
+                if(!mapping.containsValue(curr)) //if the token isn't in the mapping: its a identifier or literal
                 {
                     //need to deal with the case of it being a complex expression: aka `let a = b+c/d type int`
 
-                    int indexOfFirstSymbol = findIndexOfSymbol(arr[j]); //find index of first symbol
-                    arr[j] = arr[j].replace(" ",""); //remove whitespace within the string to make life easier
-                    breakDownExpression(arr[j], indexOfFirstSymbol); //basically do in order transversal to get tokens in the right order
+                    detectForSymbolsAndBreakDownExp(curr);
                 }
-                else 
+                else //case for 1 character symbols
                 {
                     //it was found in the mapping --> simple search of the hashmap in the token class
-                    tokenList.add(new Token(arr[j]));
+                    tokenList.add(new Token(curr));
                 }
             }
         }
+    }
+
+    //need to deal with the case of it being a complex expression: aka `let a = b+c/d type int`
+    private void detectForSymbolsAndBreakDownExp(String curr)
+    {
+        int indexOfFirstSymbol = findIndexOfSymbol(curr); //find index of first symbol
+        curr = curr.replace(" ",""); //remove whitespace within the string to make life easier
+        breakDownExpression(curr, indexOfFirstSymbol); //basically do in order transversal to get tokens in the right order
+        //if no symbol is found, indexOfFirstSymbol will be -1, in which case breakDownExpression will just assign 1 token
+        //and terminate with no further recursion
     }
 
     //meant for looking at user created expressions (identifiers/character literals) and adding them to tokenList

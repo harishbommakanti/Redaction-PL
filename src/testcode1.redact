@@ -1,5 +1,6 @@
 {begin}
-let a=b+c type int
-let d=(a/6)+b/5 type int
-let varname = "str" type string
+let a=b+c int
+let d=(a/6)+b/5 int
+let varname = "str" string
+let testbool = a>=d bool
 {end}

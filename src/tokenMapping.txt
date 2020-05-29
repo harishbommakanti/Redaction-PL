@@ -4,6 +4,7 @@
 let ~ LET
 int ~ INT
 char ~ CHAR
+bool ~ BOOLEAN
 String ~ STRING
 const ~ CONST
 type ~ TYPE
@@ -23,6 +24,8 @@ type ~ TYPE
 <= ~ LESS_OR_EQUAL_TO
 ! ~ NOT
 == ~ CONDITIONAL_EQUALS
+or ~ OR
+and ~ AND
 
 #Program Control
 if ~ IF
