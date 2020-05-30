@@ -45,9 +45,9 @@ public class unitTesting {
         filepath = "src/unitTest2.redact";
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
-        unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("loop"), new Token("STRING_LITERAL","i"), new Token("from"), 
+        unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("loop"), new Token("IDENTIFIER","i"), new Token("from"), 
                                                     new Token("INT_LITERAL","1"), new Token("to"), new Token("INT_LITERAL","10"),new Token("{"),
-                  /*TODO: fix String Literal Issue*/new Token("print"), new Token("("), new Token("STRING_LITERAL","\"LO HAW MONKAS\""), new Token(")"), new Token("}"), new Token("if"), new Token("("),
+                  /*TODO: fix String Literal Issue*/new Token("print"), new Token("("), new Token("STRING_LITERAL","\"LOHAWMONKAS\""), new Token(")"), new Token("}"), new Token("if"), new Token("("),
                                                     new Token("("), new Token("INT_LITERAL","5"), new Token("<"), new Token("INT_LITERAL","9"), new Token(")"),
                                                     new Token("and"), new Token("("), new Token("INT_LITERAL","6"), new Token(">"), new Token("INT_LITERAL","1"),
                                                     new Token(")"),new Token(")"),new Token("{"),new Token("let"),new Token("INDENTIFIER","b"), new Token("="),
@@ -59,10 +59,10 @@ public class unitTesting {
                                                     new Token("INT_LITERAL","234"), new Token("while"), new Token("("), new Token("IDENTIFIER","x"), new Token(">"), new Token("INT_LITERAL","0"), new Token(")"),
                                                     new Token("{"), new Token("print"), new Token("("),new Token("IDENTIFIER","x"), new Token(")"), new Token("IDENTIFIER","x"),
                                                     new Token("="), new Token("IDENTIFIER","x"), new Token("-"), new Token("INT_LITERAL","1"), new Token("}"), new Token("{end}")));
-        /*if(compareList(tokenList, unitTestKey))
+        if(compareList(tokenList, unitTestKey))
             System.out.println("Test 2 : Passed!");
         else
-            System.out.println("Test 2 : Failed!");*/
+            System.out.println("Test 2 : Failed!");
         
             printList(tokenList, unitTestKey);
     }
