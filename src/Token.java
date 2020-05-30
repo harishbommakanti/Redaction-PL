@@ -80,10 +80,10 @@ public class Token
         return t.name;
     }
 
-    public boolean equals(Token other)
-    {
-        return this.name.equals(other.name) && this.content.equals(other.content);
-    }
+   public static String toString3(Token t)
+   {
+       return t.name + "     " + t.content;
+   }
 
     //returns map to Lexer class
     public static Map<String,String> retMap()

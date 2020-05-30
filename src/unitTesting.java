@@ -44,12 +44,11 @@ public class unitTesting {
     {
         for(int i = 0; i < list1.size(); i++)
         {
-            boolean b1 = !(Token.toString1(list1.get(i)).equals(Token.toString1(list2.get(i))));
-            boolean b2 = !(Token.toString2(list1.get(i)).equals(Token.toString2(list2.get(i))));
-            if(b1 || b2)
+            if (!(Token.toString3(list1.get(i)).equals(Token.toString3(list2.get(i)))))
                 return false;
         }
-        return true;
+       
+            return true;
     }
 
 }

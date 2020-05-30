@@ -18,7 +18,7 @@ public class Lexer
         readSourceCode(filepath);
         preProcessString();
         processList();
-        printTokenization();
+        //printTokenization();
     }
 
     //loads source code data into str
@@ -148,10 +148,8 @@ public class Lexer
     {
         if (index == -1)
         {
-            if (findIndexOfSymbol(str) == -1)
-                addIdentifierOrLiteral(str);
-            else
-                tokenList.add(new Token(str));
+            addIdentifierOrLiteral(str);
+            return;
         } 
         else
         {
