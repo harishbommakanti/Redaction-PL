@@ -33,6 +33,7 @@ if ~ IF
 else ~ ELSE
 elif ~ ELIF
 loop ~ LOOP
+from ~ FROM
 while ~ WHILE
 {begin} ~ PROGRAM_BEGIN
 {end} ~ PROGRAM_END

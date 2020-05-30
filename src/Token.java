@@ -70,16 +70,6 @@ public class Token
         return null;
     }
 
-    public static String toString1(Token t)
-    {
-        return t.content;
-    }
-
-    public static String toString2(Token t)
-    {
-        return t.name;
-    }
-
    public static String comparisonForString(Token t)
    {
        return t.name + "     " + t.content;

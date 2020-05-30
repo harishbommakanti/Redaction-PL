@@ -11,6 +11,7 @@ public class unitTesting {
     public static void main(String[] args) throws IOException 
     {
         test1();
+        test2();
 
         
 
@@ -38,6 +39,22 @@ public class unitTesting {
         else
             System.out.println("Test 1 : Failed!");
     }
+
+    private static void test2() throws IOException
+    {
+        filepath = "src/unitTest2.redact";
+        lex = new Lexer(filepath);
+        tokenList = lex.tokenize();
+        unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("loop"), new Token("STRING_LITERAL","i")));
+        if(compareList(tokenList, unitTestKey))
+            System.out.println("Test 2 : Passed!");
+        else
+            System.out.println("Test 2 : Failed!");
+    }
+
+
+
+
 
 
     private static boolean compareList(List<Token>list1, List<Token>list2)
