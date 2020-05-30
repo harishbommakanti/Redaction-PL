@@ -2,7 +2,7 @@
 
 loop i from 1 to 10
 {
-    \p ("LO HAW MONKAS")
+    print ("LO HAW MONKAS")
 }
 
 if ((5 < 9) and (6 > 1))
@@ -10,14 +10,14 @@ if ((5 < 9) and (6 > 1))
     let b =6+4 int
     if ((b >= 6) or (5434%234 == 0))
     {
-        \p("REE")
+        print("REE")
     }
 }
 
 let x = 234
 while (x > 0)
 {
-    \p (x)
+    print (x)
     x = x-1
 }
 

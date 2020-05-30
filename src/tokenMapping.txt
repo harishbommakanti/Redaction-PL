@@ -34,6 +34,8 @@ else ~ ELSE
 elif ~ ELIF
 loop ~ LOOP
 from ~ FROM
+to ~ TO
+print ~ PRINT
 while ~ WHILE
 {begin} ~ PROGRAM_BEGIN
 {end} ~ PROGRAM_END
