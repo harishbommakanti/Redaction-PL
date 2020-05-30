@@ -1,3 +1,8 @@
+package LexicalAnalysis.UnitTests;
+
+import LexicalAnalysis.Lexer;
+import LexicalAnalysis.Token;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +24,7 @@ public class unitTesting {
 
     private static void test1() throws IOException
     {
-        filepath = "src/unitTest1.redact";
+        filepath = "src/LexicalAnalysis/UnitTests/unitTest1.redact";
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
         unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"),
@@ -41,7 +46,7 @@ public class unitTesting {
 
     private static void test2() throws IOException
     {
-        filepath = "src/unitTest2.redact";
+        filepath = "src/LexicalAnalysis/UnitTests/unitTest2.redact";
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
         unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("loop"), new Token("IDENTIFIER","i"), new Token("from"), 
@@ -69,7 +74,7 @@ public class unitTesting {
 
     private static void test3() throws IOException
     {
-        filepath = "src/unitTest3.redact";
+        filepath = "src/LexicalAnalysis/UnitTests/unitTest3.redact";
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
         unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("if"), new Token("!"), new Token("("),
@@ -94,7 +99,7 @@ public class unitTesting {
 
     private static void test4() throws IOException
     {
-        filepath = "src/unitTest4.redact";
+        filepath = "src/LexicalAnalysis/UnitTests/unitTest4.redact";
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
         unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"), new Token("if"), new Token("("),new Token("STRING_LITERAL","\"LO\""),

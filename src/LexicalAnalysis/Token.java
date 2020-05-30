@@ -1,3 +1,5 @@
+package LexicalAnalysis;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,10 +38,10 @@ public class Token
 
     static {
         //initialize the hashmap
-        String filepath = "src/tokenMapping.txt";
+        String filepath = "src/LexicalAnalysis/tokenMapping.txt";
         try {
             setTokenMapping(filepath);
-        } catch (IOException e) {}
+        } catch (IOException e) {e.getMessage();}
     }
 
     //sets the map to have the key and value in the correct spot
