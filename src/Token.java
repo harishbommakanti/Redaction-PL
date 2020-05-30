@@ -80,7 +80,7 @@ public class Token
         return t.name;
     }
 
-   public static String toString3(Token t)
+   public static String comparisonForString(Token t)
    {
        return t.name + "     " + t.content;
    }

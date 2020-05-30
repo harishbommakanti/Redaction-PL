@@ -44,7 +44,7 @@ public class unitTesting {
     {
         for(int i = 0; i < list1.size(); i++)
         {
-            if (!(Token.toString3(list1.get(i)).equals(Token.toString3(list2.get(i)))))
+            if (!(Token.comparisonForString(list1.get(i)).equals(Token.comparisonForString(list2.get(i)))))
                 return false;
         }
        
