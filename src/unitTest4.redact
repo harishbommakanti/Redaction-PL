@@ -1,2 +1,13 @@
-{begin}
+{begin} if ("LO" == "LO") { let a = 'a' char } elif { let a = 65 int }
+let x = ((4/2)+(213*234%12)-123) int
 
+loop i from 0 to x
+{
+    loop j from 0 to x
+    {
+        let LO = i*j int
+        print (LO)
+    }
+}
+
+{end}
