@@ -8,7 +8,7 @@ Syntax for Redaction
 
 a) Class Declaration
 	- Keyword "class" reserved 
-	- Keyword "private" reserved
+	- Keyword "private" reserved 
 	- file name == main class name
     	- Example
 		EX)  class test           // main class declaration
