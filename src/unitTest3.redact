@@ -1,0 +1,15 @@
+{begin}
+
+if !(324+214==538)
+{
+    let a=538 int
+    print (a)
+}
+
+let b='b' char
+
+let c = false bool const d = "Hi" String
+
+let e = d+"ThisLanguageIsVeryPoggers" String
+
+{end}
