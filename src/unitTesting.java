@@ -23,16 +23,16 @@ public class unitTesting {
         lex = new Lexer(filepath);
         tokenList = lex.tokenize();
         unitTestKey = new ArrayList<>(Arrays.asList(new Token("{begin}"),
-                                                    new Token("let"),new Token("radius"),new Token("="),new Token("6"),
-                                                    new Token("int"), new Token("let"),new Token("area"), new Token("="),
-                                                    new Token("pi"),new Token("*"),new Token("radius"),new Token("*"),
-                                                    new Token("radius"), new Token("double"), new Token("if"),new Token("("),
-                                                    new Token("radius"),new Token("<="),new Token("5"),new Token("and"),
-                                                    new Token("area"),new Token("=="),new Token("213"),new Token(")"),new Token("{"),
-                                                    new Token("let"),new Token("c"),new Token("="),new Token("5"),new Token("+"),
-                                                    new Token("3"),new Token("}"), new Token("func"),new Token("add"),
-                                                    new Token("("),new Token(")"),new Token("{"),new Token("let"),new Token("sum"),new Token("="),
-                                                    new Token("25"),new Token("-"),new Token("7"),new Token("}"),new Token("{end}")));
+                                                    new Token("let"),new Token("IDENTIFIER","radius"),new Token("="),new Token("INT_LITERAL","6"),
+                                                    new Token("int"), new Token("let"),new Token("IDENTIFIER","area"), new Token("="),
+                                                    new Token("IDENTIFIER","pi"),new Token("*"),new Token("IDENTIFIER","radius"),new Token("*"),
+                                                    new Token("IDENTIFIER","radius"), new Token("double"), new Token("if"),new Token("("),
+                                                    new Token("IDENTIFIER","radius"),new Token("<="),new Token("INT_LITERAL","5"),new Token("and"),
+                                                    new Token("IDENTIFIER","area"),new Token("=="),new Token("INT_LITERAL","213"),new Token(")"),new Token("{"),
+                                                    new Token("let"),new Token("IDENTIFIER","c"),new Token("="),new Token("INT_LITERAL","5"),new Token("+"),
+                                                    new Token("INT_LITERAL","3"),new Token("}"), new Token("func"),new Token("IDENTIFIER","add"),
+                                                    new Token("("),new Token(")"),new Token("{"),new Token("let"),new Token("IDENTIFIER","sum"),new Token("="),
+                                                    new Token("INT_LITERAL","25"),new Token("-"),new Token("INT_LITERAL","7"),new Token("}"),new Token("{end}")));
         if(compareList(tokenList, unitTestKey))
             System.out.println("Test 1 : Passed!");
         else
@@ -44,7 +44,9 @@ public class unitTesting {
     {
         for(int i = 0; i < list1.size(); i++)
         {
-            if(!(Token.toString(list1.get(i)).equals(Token.toString(list2.get(i)))))
+            boolean b1 = !(Token.toString1(list1.get(i)).equals(Token.toString1(list2.get(i))));
+            boolean b2 = !(Token.toString2(list1.get(i)).equals(Token.toString2(list2.get(i))));
+            if(b1 || b2)
                 return false;
         }
         return true;

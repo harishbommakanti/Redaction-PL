@@ -1,7 +1,7 @@
 {begin}
 let radius=6 int
 let area =pi*radius*radius double
-if(radius <= 5 and area== 213)
+for (radius <= 5 and area== 213)
 {
 let c = 5+3
 }

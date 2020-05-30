@@ -10,7 +10,7 @@ public class Token
     public String content = null;
 
     //for loading in the mapping from tokenMapping.txt
-    private static Map<String,String> mapping = new HashMap<String,String>();
+    private static HashMap<String,String> mapping = new HashMap<String,String>();
 
     //constructor for user defined tokens like function names or literals
     public Token(String name, String content)
@@ -70,9 +70,19 @@ public class Token
         return null;
     }
 
-    public static String toString(Token t)
+    public static String toString1(Token t)
     {
         return t.content;
+    }
+
+    public static String toString2(Token t)
+    {
+        return t.name;
+    }
+
+    public boolean equals(Token other)
+    {
+        return this.name.equals(other.name) && this.content.equals(other.content);
     }
 
     //returns map to Lexer class

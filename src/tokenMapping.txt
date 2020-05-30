@@ -8,7 +8,6 @@ bool ~ BOOLEAN
 String ~ STRING
 const ~ CONST
 type ~ TYPE
-double ~ DOUBLE
 = ~ ASSIGNMENT_EQUALS
 
 #Operators
@@ -47,4 +46,4 @@ $ ~ DOLLAR_SIGN
 ) ~ RIGHT_PAREN
 
 #Functions and OOP
-func ~ FUNCTION
+func ~ FUNCTION                 
