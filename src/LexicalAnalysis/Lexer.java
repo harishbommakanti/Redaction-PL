@@ -28,6 +28,9 @@ public class Lexer
     {
         byte[] rawdata = Files.readAllBytes(Paths.get(filepath));
         String rawstring = new String(rawdata);
+
+        //take all the comments out with regex magic
+        rawstring = rawstring.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
         //remove all whitespaces
         rawstring = rawstring.trim();
         str.append(rawstring);    

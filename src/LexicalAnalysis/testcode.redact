@@ -1,4 +1,9 @@
 {begin}
+/* this is a ***
+test for the comment
+regex */
+
+
 let a = 4 int
 let b = 6 int
 let c = a + b int
