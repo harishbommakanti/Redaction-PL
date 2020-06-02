@@ -1,0 +1,6 @@
+//numerical expressions in the form `a = 4+5*3`
+term ::= INTEGER | IDENTIFIER | '(' numexpr ')'
+factor ::= term | term factor
+prefix ::= factor | ('+' | '-') prefix
+multdiv ::= prefix | multdiv '/' prefix | multdiv '*' prefix
+numexpr ::= multdiv | numexpr ('+' | '-')
