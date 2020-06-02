@@ -49,6 +49,7 @@ $ ~ DOLLAR_SIGN
 } ~ CLOSE_BRACKET
 ( ~ LEFT_PAREN
 ) ~ RIGHT_PAREN
+; ~ SEMICOLON
 
 #Functions and OOP
 func ~ FUNCTION                 
