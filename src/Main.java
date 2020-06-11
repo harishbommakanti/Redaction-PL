@@ -1,5 +1,6 @@
 import LexicalAnalysis.Lexer;
 import LexicalAnalysis.Token;
+import Parser.*;
 
 import java.io.*;
 import java.util.HashMap;
@@ -21,5 +22,9 @@ public class Main
         String filepath = "src/LexicalAnalysis/testcode.redact";
         Lexer lex = new Lexer(filepath);
         List<Token> tokenList = lex.tokenize();
+        for(Token toke: tokenList)
+        {
+          System.out.println(Token.comparisonForString(toke));
+        }
     }
 } 
