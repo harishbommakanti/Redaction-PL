@@ -1,6 +1,24 @@
-//numerical expressions in the form `a = 4+5*3`
-term ::= INTEGER | IDENTIFIER | '(' numexpr ')'
-factor ::= term | term factor
-prefix ::= factor | ('+' | '-') prefix
-multdiv ::= prefix | multdiv '/' prefix | multdiv '*' prefix
-numexpr ::= multdiv | numexpr ('+' | '-')
+//general program structure
+
+WHOLEPROGRAM ::= '{begin}' STATEMENTLIST '{end}'
+STATEMENTLIST ::= STATEMENT| STATEMENTLIST STATEMENT                //1 statement or many statements
+STATEMENT ::= ASSIGNMENT | UPDATE | METHOD
+METHOD ::= 'func' IDENTIFIER '(' ')' '{' STATEMENTLIST '}'
+METHODCALL ::= IDENTIFIER '(' ')'                                   //put params here later but not for now
+
+//assignment etc
+
+ASSIGNMENT ::= 'let' IDENTIFIER '=' TERM ';'
+UPDATE ::= IDENTIFIER '=' TERM ';'
+LITERAL ::= INTEGER | STRINGLITERAL | 'true' | 'false' | 'null'
+
+
+//for parsing numerical expressions
+
+TERM ::= LITERAL | IDENTIFIER | '(' NUMEXPR ')'
+FACTOR ::= TERM | TERM FACTOR                   //implicit multiplication like 4x instead of 4*x
+NUMEXPR ::= FACTOR
+        | ('+' | '-') NUMEXPR                 //unary plus/minus, etc 'let x = 4 + -2', negatives etc
+        | NUMEXPR '/' NUMEXPR                   //explicit division
+        | NUMEXPR '*' NUMEXPR                   //explicit multiplication
+        | NUMEXPR ('+' | '-') NUMEXPR           //explicit + and -, follows PEMDAS with mult/div first
