@@ -4,30 +4,53 @@ import java.util.*;
 import LexicalAnalysis.*;
 
 public class parsing {
-    private List<Token> li;
+    private static List<Token> li;
     private static ListIterator<Token> iterator;
+    private static Token currentToken;
 
-    public parsing(List<Token> list) {
+    public parsing(List<Token> list)
+    {
         li = list;
         iterator = li.listIterator();
+        currentToken = iterator.next();
 
+        /* verifying that the iterator works ok
+        System.out.println(Token.comparisonForString(currentToken));
+        while(iterator.hasNext())
+        {
+            System.out.println(Token.comparisonForString(iterator.next()));
+        }
+        */
+
+        /*verifying that consumeToken()/error() work ok
+        consumeToken(new Token("IDENTIFIER","a")); //works fine, IDENTIFIER is matched
+        consumeToken(new Token("=")); //throws exception, good
+        System.out.println(Token.comparisonForString(currentToken));
+        */
     }
 
-    public static void error() {
-        try {
+    public static void error()
+    {
+        try
+        {
+            throw new Exception("Invalid Syntax");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void compareTokens(Token token)
+    public static void consumeToken(Token inputToken)
     {
-        if(token == iterator.next())
-            if(iterator != null)
-                //iterator = iterator.next();
+        /*
+        compare current token with the input token
+        assign a new token if it matches, or throws an exception
+         */
+        if (currentToken.name.equals(inputToken.name))
+            currentToken = iterator.next();
         else
             error();
     }
+
 
     /*
 

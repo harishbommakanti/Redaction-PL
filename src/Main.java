@@ -22,9 +22,8 @@ public class Main
         String filepath = "src/LexicalAnalysis/testcode.redact";
         Lexer lex = new Lexer(filepath);
         List<Token> tokenList = lex.tokenize();
-        for(Token toke: tokenList)
-        {
-          System.out.println(Token.comparisonForString(toke));
-        }
+
+        //stage 2 is the parser, creating a parse tree based off of the token list
+        parsing prs = new parsing(tokenList);
     }
 } 
