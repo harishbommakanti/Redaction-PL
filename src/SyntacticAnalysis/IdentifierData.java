@@ -1,4 +1,4 @@
-package Parser;
+package SyntacticAnalysis;
 
 //meant to be the data structure that holds the auxiliary data for a variable/method inside a symbol table
 public class IdentifierData

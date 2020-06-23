@@ -1,6 +1,6 @@
 import LexicalAnalysis.Lexer;
 import LexicalAnalysis.Token;
-import Parser.*;
+import SyntacticAnalysis.*;
 
 import java.io.*;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class Main
 
         //stage 2 is the parser, manually going through the token list to build the symbol table
         //and check for syntactical errors
-        parsing prs = new parsing(tokenList);
+        Parser prs = new Parser(tokenList);
         prs.parse();
     }
 } 

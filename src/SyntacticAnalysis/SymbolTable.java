@@ -1,4 +1,4 @@
-package Parser;
+package SyntacticAnalysis;
 import java.util.*;
 /*
 Due to scoping, we will need a tree-like structure

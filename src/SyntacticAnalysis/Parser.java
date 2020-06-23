@@ -1,14 +1,14 @@
-package Parser;
-import java.io.IOError;
+package SyntacticAnalysis;
 import java.util.*;
 import LexicalAnalysis.*;
 
-public class parsing {
+public class Parser
+{
     private static List<Token> tokenlist;
     private static int listsize;
     private static ListIterator<Token> iterator;
 
-    public parsing(List<Token> list)
+    public Parser(List<Token> list)
     {
         tokenlist = list;
         listsize = tokenlist.size();
