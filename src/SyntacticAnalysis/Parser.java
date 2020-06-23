@@ -7,6 +7,7 @@ public class Parser
     private static List<Token> tokenlist;
     private static int listsize;
     private static ListIterator<Token> iterator;
+    private static int iteratorIndex = 0;
 
     public Parser(List<Token> list)
     {
@@ -66,14 +67,18 @@ public class Parser
      */
     public static void parse()
     {
+        //checks for {begin} and {end}
         checkForStartAndEndTokens();
-        Token curr = iterator.next(); //move on to other indices
+        iteratorIndex = 1; //starts from token #2
 
-        while(iterator.hasNext())
+        //go on until end of tokenlist
+        while(iteratorIndex != listsize-1/*iterator.hasNext()*/)
         {
-            if (curr.name.equals("LET"))
+            Token curr = tokenlist.get(iteratorIndex)/*iterator.next()*/; //move on to other indices
+
+            if (curr.name.equals("LET")) //parse for assignment
             {
-                //parse for assignment statement until ';'
+                parseAndCheckAssignmentStatement();
             } else if (curr.name.equals("IDENTIFIER"))
             {
                 //parse for an update statement
@@ -92,6 +97,73 @@ public class Parser
                 error("");
             }
         }
+    }
+
+    //tokenlist and iterator index are global vars, no params needed
+    private static void parseAndCheckAssignmentStatement()
+    {
+        //desired structure: let <identifier> = <numerical expression/string expression> type <type>
+        // or let const <identifier> = <numerical expression/string expression> type <type>
+        //parse for assignment statement until ';'
+
+        int tempindex = iteratorIndex; //string at this index is let (otherwise we wouldn't be in this method), no need to check errors here
+        boolean isConst = false;
+
+        Token errorChecker = tokenlist.get(++iteratorIndex);
+        //if its a constant, set the flag to true and iterate the index: const should be right after let
+        if (errorChecker.name.equals("CONST"))
+        {
+            isConst = true;
+            iteratorIndex++;
+        }
+
+        String identifierName = "";
+        //check for the <identifier> and '=' part
+        if (!errorChecker.name.equals("IDENTIFIER"))
+            error("identifier expected.");
+        else
+            identifierName = errorChecker.content;
+        errorChecker = tokenlist.get(++iteratorIndex);
+        if (!errorChecker.content.equals("="))
+            error("equal sign expected.");
+
+        //now, iteratorIndex should be at the start of the expression. if theres not a literal or identifier here, error
+        errorChecker = tokenlist.get(++iteratorIndex);
+        if (!(errorChecker.name.equals("INT_LITERAL") || errorChecker.name.equals("STRING_LITERAL")) || errorChecker.name.equals("IDENTIFIER"))
+            error("expression expected.");
+
+        //now, errorChecker should be the first token of the numerical/string expression
+        Token currAssignmentToken = errorChecker;
+        List<Token> expression = new ArrayList<Token>();
+        while(!currAssignmentToken.name.equals("TYPE")) //go until the 'type __'
+        {
+            expression.add(currAssignmentToken);
+            currAssignmentToken = tokenlist.get(++iteratorIndex);
+        }
+
+        //for assigning the type of the variable, is after ...'type'.. and before ';'
+        errorChecker = tokenlist.get(++iteratorIndex);
+        String varType = "";
+        if (!(errorChecker.name.equals("INT") || errorChecker.name.equals("STRING") || errorChecker.name.equals("DOUBLE")))
+            error("type of variable assignment expected.");
+        else
+            varType = errorChecker.name;
+
+        //check for semicolon
+        errorChecker = tokenlist.get(++iteratorIndex);
+        if (!errorChecker.content.equals(";"))
+            error("semicolon expected.");
+
+
+        //expression is stored in List<Token> expression, need to parse it to get its true value
+        //ParseTree expParser = new ParseTree(expression); //TODO: create ParseTree class and do this
+        String varValue = ""/*expParser.parse()*/;
+
+        //using the constructor for variables, consult IdentiferData.java to see
+        IdentifierData vardata = new IdentifierData(varValue,varType,isConst);
+
+        //TODO: add a symbol table way above in this file in the constructor prolly and have a way to track scope, best way is prolly LL
+        //symboltable.put(identifierName,IdentifierData) or smth like that
     }
 
     private static void checkForStartAndEndTokens()
