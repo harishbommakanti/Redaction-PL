@@ -26,5 +26,6 @@ public class Main
         //stage 2 is the parser, manually going through the token list to build the symbol table
         //and check for syntactical errors
         parsing prs = new parsing(tokenList);
+        prs.parse();
     }
 } 
