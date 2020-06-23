@@ -4,85 +4,37 @@ import java.util.*;
 import LexicalAnalysis.*;
 
 public class parsing {
-    private static List<Token> li;
-    private static ListIterator<Token> iterator;
-    private static Token currentToken;
+    private static List<Token> tokenlist;
+    private static int iteratorIndex = 0;
 
     public parsing(List<Token> list)
     {
-        li = list;
-        iterator = li.listIterator();
-        currentToken = iterator.next();
-
-        /* verifying that the iterator works ok
-        System.out.println(Token.comparisonForString(currentToken));
-        while(iterator.hasNext())
-        {
-            System.out.println(Token.comparisonForString(iterator.next()));
-        }
-        */
-
-        /*verifying that consumeToken()/error() work ok
-        consumeToken(new Token("IDENTIFIER","a")); //works fine, IDENTIFIER is matched
-        consumeToken(new Token("=")); //throws exception, good
-        System.out.println(Token.comparisonForString(currentToken));
-        */
+        tokenlist = list;
+        beginParsing();
     }
 
-    public static void error()
+    //will manually go through the tokens, build a symbol table, and if the structure doesn't match with what is
+    //expected, an error (desirably a specific error like missing ')') will be thrown to the java console
+    private static void beginParsing()
+    {
+        //first, must check for beginning/ending tokens
+        checkForStartAndEndTokens();
+    }
+
+    private static void checkForStartAndEndTokens()
+    {
+        if (!(tokenlist.get(0).name.equals("PROGRAM_BEGIN") && tokenlist.get(tokenlist.size()-1).name.equals("PROGRAM_END")))
+            error("{begin} and/or {end} tokens expected.");
+    }
+
+    private static void error(String message)
     {
         try
         {
-            throw new Exception("Invalid Syntax");
-        } catch (Exception e) {
+            throw new Exception("Invalid syntax: "+message);
+        } catch(Exception e)
+        {
             e.printStackTrace();
         }
     }
-
-    public static void consumeToken(Token inputToken)
-    {
-        /*
-        compare current token with the input token
-        assign a new token if it matches, or throws an exception
-         */
-        if (currentToken.name.equals(inputToken.name))
-            currentToken = iterator.next();
-        else
-            error();
-    }
-
-
-    /*
-
-    def factor(self):
-        """Return an INTEGER token value.
-
-        factor : INTEGER
-        """
-        token = self.current_token
-        self.eat(INTEGER)
-        return token.value
-
-    def expr(self):
-        """Arithmetic expression parser / interpreter.
-
-        expr   : factor ((MUL | DIV) factor)*
-        factor : INTEGER
-        """
-        result = self.factor()
-
-        while self.current_token.type in (MUL, DIV):
-            token = self.current_token
-            if token.type == MUL:
-                self.eat(MUL)
-                result = result * self.factor()
-            elif token.type == DIV:
-                self.eat(DIV)
-                result = result / self.factor()
-
-        return result */
-
-
-
-
 }
