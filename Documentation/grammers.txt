@@ -1,24 +1,42 @@
 //general program structure
 
-WHOLEPROGRAM ::= '{begin}' STATEMENTLIST '{end}'
-STATEMENTLIST ::= STATEMENT| STATEMENTLIST STATEMENT                //1 statement or many statements
-STATEMENT ::= ASSIGNMENT | UPDATE | METHOD
-METHOD ::= 'func' IDENTIFIER '(' ')' '{' STATEMENTLIST '}'
-METHODCALL ::= IDENTIFIER '(' ')'                                   //put params here later but not for now
+<statementlist> ::= <statement> | <statementlist> <statement>                //1 statement or many statements
 
-//assignment etc
+<statement> ::= <assignment> | <update> | <method>
 
-ASSIGNMENT ::= 'let' IDENTIFIER '=' TERM ';'
-UPDATE ::= IDENTIFIER '=' TERM ';'
-LITERAL ::= INTEGER | STRINGLITERAL | 'true' | 'false' | 'null'
+<method> ::= <methodheading> <methodbody>
+
+<methodheading> ::= 'func' <identifier> '(' ')'
+
+<methodbody> ::= '{' <statementlist> '}'
+
+<methodcall> ::= <identifier> '(' <argumentlist>? ')'                                   //put params here later but not for now
+
+<assignment> ::= 'let' <identifier> '=' <term> ';'
+
+<update> ::= <identifier> '=' <term> ';'
+
+<if> ::= 'if' '(' <boolexpression> ')' '{' <statementlist> '}'
+
+<loop> ::= 'loop' <identifier> 'from' <int literal> to <int literal>
+
+<boolexpression> ::= <term> <conditional operator> <term>
 
 
-//for parsing numerical expressions
 
-TERM ::= LITERAL | IDENTIFIER | '(' NUMEXPR ')'
-FACTOR ::= TERM | TERM FACTOR                   //implicit multiplication like 4x instead of 4*x
-NUMEXPR ::= FACTOR
-        | ('+' | '-') NUMEXPR                 //unary plus/minus, etc 'let x = 4 + -2', negatives etc
-        | NUMEXPR '/' NUMEXPR                   //explicit division
-        | NUMEXPR '*' NUMEXPR                   //explicit multiplication
-        | NUMEXPR ('+' | '-') NUMEXPR           //explicit + and -, follows PEMDAS with mult/div first
+//literals and operators and stuff like that
+<literal> ::= <int literal> | <string literal> | <boolean literal> | 'null'
+
+<boolean literal> ::= 'true' | 'false'
+
+<conditional operator> ::= '!' | '<' | '>' | '<=' | '>=' | '==' | 'and' | 'or'
+
+<term> ::= <literal> | <identifier> | '(' <numexpression> ')'
+
+
+
+//parsing numerical expressions
+<numexpression> ::= ('+' | '-') <numexpression>                 //unary plus/minus, etc 'let x = 4 + -2', negatives etc
+        | <numexpression> '/' <numexpression>                   //explicit division
+        | <numexpression> '*' <numexpression>                   //explicit multiplication
+        | <numexpression> ('+' | '-') <numexpression>           //explicit + and -, follows PEMDAS with mult/div first
