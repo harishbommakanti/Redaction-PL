@@ -1,8 +1,11 @@
 //general program structure
 
-<statementlist> ::= <statement> | <statementlist> <statement>                //1 statement or many statements
+<statementlist> ::= <statement>
+                | <statementlist> <statement>                //1 statement or many statements
 
-<statement> ::= <assignment> | <update> | <method>
+<statement> ::= <assignment>
+            | <update>
+            | <method>
 
 <method> ::= <methodheading> <methodbody>
 
@@ -25,18 +28,34 @@
 
 
 //literals and operators and stuff like that
-<literal> ::= <int literal> | <string literal> | <boolean literal> | 'null'
+<literal> ::= <int literal>
+            | <string literal>
+            | <boolean literal>
+            | 'null'
 
 <boolean literal> ::= 'true' | 'false'
 
-<conditional operator> ::= '!' | '<' | '>' | '<=' | '>=' | '==' | 'and' | 'or'
+<conditional operator> ::= '!'| '<' | '>' | '<=' | '>=' | '==' | 'and' | 'or'
 
 <term> ::= <literal> | <identifier> | '(' <numexpression> ')'
 
 
 
 //parsing numerical expressions
-<numexpression> ::= ('+' | '-') <numexpression>                 //unary plus/minus, etc 'let x = 4 + -2', negatives etc
-        | <numexpression> '/' <numexpression>                   //explicit division
-        | <numexpression> '*' <numexpression>                   //explicit multiplication
-        | <numexpression> ('+' | '-') <numexpression>           //explicit + and -, follows PEMDAS with mult/div first
+<numexpression> ::= <equality>
+
+<equality> ::= <comparison> ( ( "!=" | "==" ) <comparison> )*
+
+<comparison> ::= <addition> ( ( ">" | ">=" | "<" | "<=" ) <addition> )*
+
+<addition> ::= <multiplication> ( ( "-" | "+" ) <multiplication> )*
+
+<multiplication> ::= <unary> ( ( "/" | "*" ) <unary> )*
+
+<unary> ::= ( "!" | "-" ) <unary>
+        | <primary>
+
+<primary> ::= NUM_LITERAL
+            | STRING_LITERAL
+            | <boolean literal>
+            | "(" <expression> ")"
