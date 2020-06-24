@@ -2,14 +2,14 @@ package SyntacticAnalysis;
 import java.util.*;
 import LexicalAnalysis.*;
 
-public class Parser
+public class ParserNaive
 {
     private static List<Token> tokenlist;
     private static int listsize;
     private static ListIterator<Token> iterator;
     private static int iteratorIndex = 0;
 
-    public Parser(List<Token> list)
+    public ParserNaive(List<Token> list)
     {
         tokenlist = list;
         listsize = tokenlist.size();
