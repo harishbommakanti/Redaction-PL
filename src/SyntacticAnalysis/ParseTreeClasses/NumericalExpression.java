@@ -2,7 +2,7 @@ package SyntacticAnalysis.ParseTreeClasses;
 
 import LexicalAnalysis.Token;
 
-abstract class NumericalExpression
+public abstract class NumericalExpression
 {
     /*interface for the visitor style OOP design pattern
     TLDR of visitor: allows you to both define new classes (binary, unary etc)
@@ -20,7 +20,7 @@ abstract class NumericalExpression
 
     //using grammers.txt, define subclasses here inside that represent
     //ways a numerical expression can be formed
-    static class Binary extends NumericalExpression
+    public static class Binary extends NumericalExpression
     {
         final NumericalExpression left;
         final Token operator;
@@ -40,7 +40,7 @@ abstract class NumericalExpression
         }
     }
 
-    static class Grouping extends NumericalExpression
+    public static class Grouping extends NumericalExpression
     {
         final NumericalExpression expression;
         public Grouping(NumericalExpression expression)
@@ -55,7 +55,7 @@ abstract class NumericalExpression
         }
     }
 
-    static class Literal extends NumericalExpression
+    public static class Literal extends NumericalExpression
     {
         final Object value;
 
@@ -71,7 +71,7 @@ abstract class NumericalExpression
         }
     }
 
-    static class Unary extends NumericalExpression
+    public static class Unary extends NumericalExpression
     {
         final Token operator;
         final NumericalExpression right;
