@@ -24,6 +24,7 @@ type ~ TYPE
 < ~ LESS_THAN
 <= ~ LESS_OR_EQUAL_TO
 ! ~ NOT
+!+ ~ NOT_EQUAL_TO
 == ~ CONDITIONAL_EQUALS
 or ~ OR
 and ~ AND
