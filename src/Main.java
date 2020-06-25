@@ -1,6 +1,8 @@
 import LexicalAnalysis.Lexer;
 import LexicalAnalysis.Token;
 import SyntacticAnalysis.*;
+import SyntacticAnalysis.ParseTreeClasses.AstPrinter;
+import SyntacticAnalysis.ParseTreeClasses.Expression;
 
 import java.io.*;
 import java.util.HashMap;
@@ -28,5 +30,12 @@ public class Main
 
         //ParserNaive prs = new ParserNaive(tokenList);
         //prs.parse();
+
+        ParserRecursiveDescent parser = new ParserRecursiveDescent(tokenList);
+        Expression exp = parser.parse();
+
+        if (parser.hadError) return; //there was a syntax/parsing error
+
+        System.out.println(new AstPrinter().print(exp));
     }
 } 

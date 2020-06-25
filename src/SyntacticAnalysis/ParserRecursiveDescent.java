@@ -11,6 +11,7 @@ public class ParserRecursiveDescent
     private final List<Token> tokens; //tokenlist
     private int current = 0; //an index tracker of tokenlist to go through the entire list
     private static class ParseError extends RuntimeException{} //to handle parse errors
+    public boolean hadError = false;
 
     public ParserRecursiveDescent(List<Token> tokens)
     {
@@ -20,6 +21,19 @@ public class ParserRecursiveDescent
     public static void main(String[] args)
     {
         testASTPrinter();
+    }
+
+    //returns a huge expression encompassing all other expressions of the language, or null if theres an error
+    public Expression parse()
+    {
+        try
+        {
+            return expression();
+        } catch (ParseError error)
+        {
+            hadError=true;
+            return null;
+        }
     }
 
     private static void testASTPrinter()
