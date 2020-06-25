@@ -30,6 +30,7 @@ or ~ OR
 and ~ AND
 false ~ FALSE
 true ~ TRUE
+null ~ NULL
 
 #Program Control
 if ~ IF

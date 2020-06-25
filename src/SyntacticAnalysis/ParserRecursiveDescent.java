@@ -54,7 +54,7 @@ public class ParserRecursiveDescent
         Expression expr = comparison();
 
         //* on the right of the grammar means while there is still a symbol in the expression
-        while(doesMatch("NOT_EQUAL_TO","CONDITIONAL_EQUALS"))
+        while(match("NOT_EQUAL_TO","CONDITIONAL_EQUALS"))
         {
             //the 'middle' of the grammar
             Token operator = previous();
@@ -70,6 +70,110 @@ public class ParserRecursiveDescent
         return expr;
     }
 
+    //<comparison> ::= <addition> ( ( ">" | ">=" | "<" | "<=" ) <addition> )*
+    private Expression comparison()
+    {
+        //almost exact structure to <equality> : check for expression on left,
+        //then enter into a while loop which allocates tokens and a right addition token
+
+        //first token on the left
+        Expression expr = addition();
+
+        while(match(">",">=","<","<="))
+        {
+            //allocate tokens while there is still an operator in the sequence
+            Token operator = previous();
+            Expression right = addition();
+            expr = new Expression.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
+    //<addition> ::= <multiplication> ( ( "-" | "+" ) <multiplication> )*
+    private Expression addition()
+    {
+        //again, virtually identical to the last two methods, comparison() and equality()
+        Expression expr = multiplication();
+
+        while(match("-","+"))
+        {
+            Token operator = previous();
+            Expression right = multiplication();
+            expr = new Expression.Binary(expr,operator,right);
+        }
+
+        return expr;
+    }
+
+    //<multiplication> ::= <unary> ( ( "/" | "*" ) <unary> )*
+    private Expression multiplication()
+    {
+        //no surprise here...
+        Expression expr = unary();
+
+        while(match("/","*"))
+        {
+            Token operator = previous();
+            Expression right = unary();
+            expr = new Expression.Binary(expr,operator,right);
+        }
+
+        return expr;
+    }
+
+    //<unary> ::= ( "!" | "-" ) <unary> | <primary>
+    private Expression unary()
+    {
+        //since there is a |, its an if-else situation
+
+        //if the statement has a negation or minus:
+        if(match("!","-"))
+        {
+            //there is a Token operator followed by another unary
+            Token operator = previous();
+            Expression right = unary();
+            return new Expression.Unary(operator,right);
+        }
+
+        //else, its just a primary
+        return primary();
+    }
+
+    //<primary> ::= NUM_LITERAL | STRING_LITERAL | <boolean literal> | "(" <expression> ")"
+    private Expression primary()
+    {
+        //stuff you have to watch out for
+        if (match("FALSE")) return new Expression.Literal(false);
+        if (match("TRUE")) return new Expression.Literal(true);
+        if (match("NULL")) return new Expression.Literal(null);
+
+        //the other types
+        if (match("INT_LITERAL","STRING_LITERAL"))
+            return new Expression.Literal(previous().content);
+
+        //a little more complicated, need to have error handling too
+        if (match("LEFT_PAREN"))
+        {
+            Object j = false;
+            //you have a regular expression in the middle
+            Expression expr = expression();
+
+            //this is the first time we *need* a ), in other methods we just checked
+            //so therefore we need to have error checking
+            consume("RIGHT_PAREN","Expect ')' after expression.");
+            return new Expression.Grouping(expr);
+        }
+
+        return null;
+    }
+
+
+
+
+
+
+    //utility methods
     private boolean match(String... tokenTypes)
     {
         for (String s: tokenTypes)
@@ -77,7 +181,7 @@ public class ParserRecursiveDescent
             //if the current token is any of the types, return true
             if (check(s))
             {
-                advance();
+                advance(); //move on so there is no infinite loop in the place match() was called
                 return true;
             }
         }
@@ -102,7 +206,7 @@ public class ParserRecursiveDescent
         return previous();
     }
 
-    //utility methods
+    //returns whether the parser has reached the end of the file
     private boolean isAtEnd()
     {
         return peek().name.equals("PROGRAM_END");
