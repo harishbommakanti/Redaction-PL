@@ -10,6 +10,7 @@ public class ParserRecursiveDescent
 {
     private final List<Token> tokens; //tokenlist
     private int current = 0; //an index tracker of tokenlist to go through the entire list
+    private static class ParseError extends RuntimeException{} //to handle parse errors
 
     public ParserRecursiveDescent(List<Token> tokens)
     {
@@ -37,6 +38,15 @@ public class ParserRecursiveDescent
 
         System.out.println(new AstPrinter().print(expr));
     }
+
+
+
+
+
+
+
+
+
 
 
     //below will be methods directly translating each rule to a function
@@ -165,8 +175,92 @@ public class ParserRecursiveDescent
             return new Expression.Grouping(expr);
         }
 
-        return null;
+        //instead of returning null, throw an error saying you expect an expression
+        throw error(peek().name, "Expect expression.");
     }
+
+
+
+
+
+
+
+
+
+
+
+    /*Error checking: when an error is detected, the program will jump into 'Panic mode'
+    which means that itll discard tokens until it returns to a properly defined grammar. Although
+    this hides possible errors in the discarded tokens, it also avoids seeing nonsense cascaded errors, so its good.
+    * */
+    private Token consume(String tokenType, String message)
+    {
+        //if the current token is of the input type, move on: everything is good
+        if (check(tokenType)) return advance();
+
+        //else, throw an error with a message
+        throw error(tokenType, message);
+    }
+
+    //small function to handle reporting an error
+    private ParseError error(String tokenType, String message)
+    {
+        handleError(tokenType,message);
+        return new ParseError();
+    }
+
+    //handles a specific error
+    static void handleError(String tokenType, String message)
+    {
+        reportErrorToUser("Error at '" + tokenType + "'," + message);
+    }
+
+    //displays the errors to the user
+    static void reportErrorToUser(String... messages)
+    {
+        StringBuilder curr = new StringBuilder();
+        for (String i:messages)
+            curr.append(i);
+
+        System.out.println(curr.toString());
+    }
+
+
+    //for when we want to 'return' to a grammar rule state after an error is thrown, part of 'Panic Mode'
+    //this means discarding tokens until we get to the beginning of the next statement
+
+    //after a semicolon, we're done with a statement, only other cases are keywords: for, if, return, var...
+    private void synchronize()
+    {
+        advance(); //move on to the next token to see what tokens to discard/where you can resume parsing
+
+        while(!isAtEnd())
+        {
+            //if there was a syntax error in 1 LOC, you can just break out once you reach the semicolon
+            if (previous().content.equals(";")) return;
+
+            //until it reaches one of the keywords, the loop keeps going. then, it advances and the parsing restarts
+            switch(peek().name)
+            {
+                case "FUNCTION":
+                case "LET":
+                case "FOR":
+                case "IF":
+                case "WHILE":
+                case "PRINT":
+                case "RETURN": return;
+            }
+
+            advance();
+        }
+    }
+
+
+
+
+
+
+
 
 
 
