@@ -2,7 +2,7 @@ package SyntacticAnalysis.ParseTreeClasses;
 
 import LexicalAnalysis.Token;
 
-public abstract class NumericalExpression
+public abstract class Expression
 {
     /*interface for the visitor style OOP design pattern
     TLDR of visitor: allows you to both define new classes (binary, unary etc)
@@ -12,21 +12,21 @@ public abstract class NumericalExpression
 
     interface Visitor<R>
     {
-        R visitBinaryNumericalExpression(Binary expr);
-        R visitGroupingNumericalExpression(Grouping expr);
-        R visitLiteralNumericalExpression(Literal expr);
-        R visitUnaryNumericalExpression(Unary expr);
+        R visitBinaryExpression(Binary expr);
+        R visitGroupingExpression(Grouping expr);
+        R visitLiteralExpression(Literal expr);
+        R visitUnaryExpression(Unary expr);
     }
 
     //using grammers.txt, define subclasses here inside that represent
     //ways a numerical expression can be formed
-    public static class Binary extends NumericalExpression
+    public static class Binary extends Expression
     {
-        final NumericalExpression left;
+        final Expression left;
         final Token operator;
-        final NumericalExpression right;
+        final Expression right;
 
-        public Binary(NumericalExpression left, Token operator, NumericalExpression right)
+        public Binary(Expression left, Token operator, Expression right)
         {
             this.left = left;
             this.operator = operator;
@@ -36,14 +36,14 @@ public abstract class NumericalExpression
         @Override
         <R> R accept(Visitor<R> visitor)
         {
-            return visitor.visitBinaryNumericalExpression(this);
+            return visitor.visitBinaryExpression(this);
         }
     }
 
-    public static class Grouping extends NumericalExpression
+    public static class Grouping extends Expression
     {
-        final NumericalExpression expression;
-        public Grouping(NumericalExpression expression)
+        final Expression expression;
+        public Grouping(Expression expression)
         {
             this.expression = expression;
         }
@@ -51,11 +51,11 @@ public abstract class NumericalExpression
         @Override
         <R> R accept(Visitor<R> visitor)
         {
-            return visitor.visitGroupingNumericalExpression(this);
+            return visitor.visitGroupingExpression(this);
         }
     }
 
-    public static class Literal extends NumericalExpression
+    public static class Literal extends Expression
     {
         final Object value;
 
@@ -67,16 +67,16 @@ public abstract class NumericalExpression
         @Override
         <R> R accept(Visitor<R> visitor)
         {
-            return visitor.visitLiteralNumericalExpression(this);
+            return visitor.visitLiteralExpression(this);
         }
     }
 
-    public static class Unary extends NumericalExpression
+    public static class Unary extends Expression
     {
         final Token operator;
-        final NumericalExpression right;
+        final Expression right;
 
-        public Unary(Token operator, NumericalExpression right)
+        public Unary(Token operator, Expression right)
         {
             this.operator = operator;
             this.right = right;
@@ -85,7 +85,7 @@ public abstract class NumericalExpression
         @Override
         <R> R accept(Visitor<R> visitor)
         {
-            return visitor.visitUnaryNumericalExpression(this);
+            return visitor.visitUnaryExpression(this);
         }
     }
 }

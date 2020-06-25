@@ -2,7 +2,7 @@ package SyntacticAnalysis;
 
 import LexicalAnalysis.Token;
 import SyntacticAnalysis.ParseTreeClasses.AstPrinter;
-import SyntacticAnalysis.ParseTreeClasses.NumericalExpression;
+import SyntacticAnalysis.ParseTreeClasses.Expression;
 
 import java.util.*;
 
@@ -25,13 +25,13 @@ public class ParserRecursiveDescent
     {
         //driver code to test ASTPrinter.java
         //translates to the expression '-123 * (45.67)'
-        NumericalExpression expr = new NumericalExpression.Binary(
-            new NumericalExpression.Unary(
+        Expression expr = new Expression.Binary(
+            new Expression.Unary(
                     new Token("-"),
-                    new NumericalExpression.Literal(123)),
+                    new Expression.Literal(123)),
             new Token("*"),
-            new NumericalExpression.Grouping(
-                    new NumericalExpression.Literal(45.67)
+            new Expression.Grouping(
+                    new Expression.Literal(45.67)
         ));
         //works out fine
 
