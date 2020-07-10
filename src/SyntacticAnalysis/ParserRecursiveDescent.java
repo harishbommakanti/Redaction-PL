@@ -25,6 +25,31 @@ public class ParserRecursiveDescent
     //returns a huge expression encompassing all other expressions of the language, or null if theres an error
     public Expression parse(String errorStr)
     {
+        //Initial code to make sure program begin/program end are there, otherwise it'll interfere with the parsing
+        boolean startPresent = true;
+        boolean endPresent = true;
+
+        if (!tokens.get(0).name.equals("PROGRAM_BEGIN"))
+        {
+            error(tokens.get(0).name,"Expected {begin} at beginning of file.");
+            startPresent = false;
+        }
+        if (!tokens.get(tokens.size()-1).name.equals("PROGRAM_END"))
+        {
+            error(tokens.get(tokens.size()-1).name,"Expected {end} at ending of file.");
+            endPresent = false;
+        }
+
+        if (!(startPresent && endPresent))
+        {
+            errorStr = "true";
+            return null;
+        }
+
+        //else they are both present, continue with parsing the rest of file after popping the BOF/EOF tokens from the list
+        tokens.remove(0);
+        tokens.remove(tokens.size()-1);
+
         try
         {
             return expression();

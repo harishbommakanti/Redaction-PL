@@ -47,6 +47,7 @@ public class Main
         //the AstPrinter was just to check if the visitor structure etc worked
         //System.out.println(new AstPrinter().print(exp));
         interpreter.interpret(exp);
+        if (hadRuntimeError) System.exit(70);
     }
 
     static void runtimeError(RuntimeError error)

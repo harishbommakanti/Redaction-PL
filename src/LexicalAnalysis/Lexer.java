@@ -187,7 +187,8 @@ public class Lexer
     //the result of the lexing phase: returns a list of tokens
     public ArrayList<Token> tokenize()
     {
-        printTokenization();
+        //the printTokenization method is just for debugging, not really needed after lexical phase
+        //printTokenization();
         return tokenList;
     }
 }
