@@ -182,11 +182,12 @@ public class Lexer
         {
             System.out.println("name: " + t.name + "\tcontent: " + t.content);
         }
-    }
+    } 
 
     //the result of the lexing phase: returns a list of tokens
     public ArrayList<Token> tokenize()
     {
+        printTokenization();
         return tokenList;
     }
 }

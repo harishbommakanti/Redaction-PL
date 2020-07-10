@@ -72,7 +72,7 @@ public class ParserNaive
         iteratorIndex = 1; //starts from token #2
 
         //go on until end of tokenlist
-        while(iteratorIndex != listsize-1/*iterator.hasNext()*/)
+        while(iteratorIndex != listsize-1 /*iterator.hasNext()*/)
         {
             Token curr = tokenlist.get(iteratorIndex)/*iterator.next()*/; //move on to other indices
 

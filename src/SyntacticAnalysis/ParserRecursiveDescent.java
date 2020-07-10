@@ -53,16 +53,6 @@ public class ParserRecursiveDescent
         System.out.println(new AstPrinter().print(expr));
     }
 
-
-
-
-
-
-
-
-
-
-
     //below will be methods directly translating each rule to a function
 
     // <expression> ::= <equality> --> very simple

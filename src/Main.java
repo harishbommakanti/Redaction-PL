@@ -8,7 +8,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 //Main class for calling functions from other classes like Lexer and Parser
 //The 'landing page' of the compiler/interpreter(byte)
 public class Main
@@ -21,9 +20,10 @@ public class Main
     public static void main(String[] args) throws IOException
     {
         //stage 1 of the compiler is the Lexer, which converts the input program into a sequence of tokens
-        String filepath = "src/LexicalAnalysis/UnitTests/unitTest1.redact";
+        String filepath = "src/test1.redact";
         Lexer lex = new Lexer(filepath);
         List<Token> tokenList = lex.tokenize();
+  
 
         //stage 2 is the parser, manually going through the token list to build the symbol table
         //and check for syntactical errors
