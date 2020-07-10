@@ -16,6 +16,7 @@ public class Interpreter implements Expression.Visitor<Object>
         }
         catch (RuntimeError error)
         {
+            System.out.println("Runtime error in Interpreter.java");
             //ParserRecursiveDescent.runtimeError(error);
         }
     }
@@ -140,7 +141,6 @@ public class Interpreter implements Expression.Visitor<Object>
     private String stringify(Object object)
     {
         if (object == null) return "null";
-
         // Hack. Work around Java adding ".0" to integer-valued doubles.
         if (object instanceof Double)
         {

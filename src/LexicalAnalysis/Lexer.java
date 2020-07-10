@@ -176,7 +176,7 @@ public class Lexer
     }
 
     //print out index, token, and token identity
-    private void printTokenization()
+    public void printTokenization()
     {
        for(Token t : tokenList)
         {

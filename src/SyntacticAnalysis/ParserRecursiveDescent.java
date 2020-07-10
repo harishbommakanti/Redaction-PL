@@ -50,6 +50,9 @@ public class ParserRecursiveDescent
         tokens.remove(0);
         tokens.remove(tokens.size()-1);
 
+        //add another EOF token to try and satisfy compiler
+        tokens.add(new Token("EOF"));
+
         try
         {
             return expression();
@@ -117,7 +120,7 @@ public class ParserRecursiveDescent
         //first token on the left
         Expression expr = addition();
 
-        while(match(">",">=","<","<="))
+        while(match("GREATER_THAN","GREATER_OR_EQUAL_TO","LESS_THAN","LESS_OR_EQUAL_TO"))
         {
             //allocate tokens while there is still an operator in the sequence
             Token operator = previous();
@@ -134,7 +137,7 @@ public class ParserRecursiveDescent
         //again, virtually identical to the last two methods, comparison() and equality()
         Expression expr = multiplication();
 
-        while(match("-","+"))
+        while(match("MINUS","PLUS"))
         {
             Token operator = previous();
             Expression right = multiplication();
@@ -150,7 +153,7 @@ public class ParserRecursiveDescent
         //no surprise here...
         Expression expr = unary();
 
-        while(match("/","*"))
+        while(match("DIVIDE","MULTIPLY"))
         {
             Token operator = previous();
             Expression right = unary();
@@ -166,7 +169,7 @@ public class ParserRecursiveDescent
         //since there is a |, its an if-else situation
 
         //if the statement has a negation or minus:
-        if(match("!","-"))
+        if(match("NOT","MINUS"))
         {
             //there is a Token operator followed by another unary
             Token operator = previous();
@@ -193,7 +196,6 @@ public class ParserRecursiveDescent
         //a little more complicated, need to have error handling too
         if (match("LEFT_PAREN"))
         {
-            Object j = false;
             //you have a regular expression in the middle
             Expression expr = expression();
 
@@ -318,7 +320,7 @@ public class ParserRecursiveDescent
         //if it is at the end of the file, return false: no token there
         if (isAtEnd()) return false;
 
-        return tokens.get(current).name.equals(tokenType);
+        return peek().name.equals(tokenType);
     }
 
     //moves the 'current' tokenlist pointer to the right
@@ -331,8 +333,8 @@ public class ParserRecursiveDescent
     //returns whether the parser has reached the end of the file
     private boolean isAtEnd()
     {
-        return peek().name.equals("PROGRAM_END");
-    }
+        return peek().name.equals("EOF");
+    } //no token left
 
     //returns the current token
     private Token peek()

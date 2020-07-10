@@ -42,11 +42,13 @@ public class Main
         Expression exp = parser.parse(errorStr);
         hadError = Boolean.parseBoolean(errorStr);
 
+        //lex.printTokenization(); for the debugging
+
         if (hadError) return; //there was a syntax/parsing error
 
         //the AstPrinter was just to check if the visitor structure etc worked
-        //System.out.println(new AstPrinter().print(exp));
-        interpreter.interpret(exp);
+        System.out.println(new AstPrinter().print(exp));
+        //interpreter.interpret(exp);
         if (hadRuntimeError) System.exit(70);
     }
 

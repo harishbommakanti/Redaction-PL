@@ -44,6 +44,7 @@ while ~ WHILE
 {end} ~ PROGRAM_END
 /* ~ COMMENT_START
 */ ~ COMMENT_END
+EOF ~ EOF
 
 #Symbols
 $ ~ DOLLAR_SIGN
