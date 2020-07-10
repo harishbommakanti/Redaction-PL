@@ -1,17 +1,13 @@
 package SyntacticAnalysis.ParseTreeClasses;
 
 import SyntacticAnalysis.ParserRecursiveDescent;
-import SyntacticAnalysis.ParseTreeClasses.Expression.Binary;
-import SyntacticAnalysis.ParseTreeClasses.Expression.Grouping;
-import SyntacticAnalysis.ParseTreeClasses.Expression.Literal;
-import SyntacticAnalysis.ParseTreeClasses.Expression.Unary;
 
 import LexicalAnalysis.Token;
 
 public class Interpreter implements Expression.Visitor<Object>
 {
-
-    void interpret(Expression expression)
+    //public method available to the driver class to interpret an expression
+    public void interpret(Expression expression)
     {
         try
         {
@@ -20,16 +16,18 @@ public class Interpreter implements Expression.Visitor<Object>
         }
         catch (RuntimeError error)
         {
-        //ParserRecursiveDescent.runtimeError(error);
+            //ParserRecursiveDescent.runtimeError(error);
         }
     }
 
     @Override
-    public Object visitBinaryExpression(Binary expr)
+    public Object visitBinaryExpression(Expression.Binary expr)
     {
+        //binary is like 4+3, 3-(4*x), so you need to break it into left, operator, right
         Object left = evaluate(expr.left);
         Object right = evaluate(expr.right);
 
+        //for each case of the operator
         switch (expr.operator.name)
         {
             case "GREATER_THAN":
@@ -72,12 +70,14 @@ public class Interpreter implements Expression.Visitor<Object>
         return null;
     }
 
+    //also trivial, return the evaluation of the inside expression
     @Override
     public Object visitGroupingExpression(Expression.Grouping expr)
     {
         return evaluate(expr.expression);
     }
 
+    //trivial, just return the value for a literal
     @Override
     public Object visitLiteralExpression(Expression.Literal expr)
     {
@@ -85,9 +85,12 @@ public class Interpreter implements Expression.Visitor<Object>
     }
 
     @Override
-    public Object visitUnaryExpression(Unary expr)
+    public Object visitUnaryExpression(Expression.Unary expr)
     {
+        //unary is like - 4 or -(6+3), need to take the right side as an expression and evaluate it
+        //operator is the - or + or !, so have a case for each of those
         Object right = evaluate(expr.right);
+
         switch (expr.operator.name)
         {
             case "NOT":
@@ -115,6 +118,7 @@ public class Interpreter implements Expression.Visitor<Object>
         throw new RuntimeError(operator, "Operands must be numbers.");
     }
 
+    //an object to see if an object is 'falsey' or 'truthey', handwavey definitions to define empty/null/bool values
     private boolean isTruthy(Object object)
     {
         if (object == null) return false;
@@ -122,6 +126,7 @@ public class Interpreter implements Expression.Visitor<Object>
         return true;
     }
 
+    //simple utility methods to check if 2 objects are equal to eachother
     private boolean isEqual(Object a, Object b)
     {
         // nil is only equal to nil.
@@ -131,9 +136,10 @@ public class Interpreter implements Expression.Visitor<Object>
         return a.equals(b);
     }
 
+    //returns the string value evaluation of a current expression
     private String stringify(Object object)
     {
-        if (object == null) return "nil";
+        if (object == null) return "null";
 
         // Hack. Work around Java adding ".0" to integer-valued doubles.
         if (object instanceof Double)
@@ -141,7 +147,7 @@ public class Interpreter implements Expression.Visitor<Object>
             String text = object.toString();
             if (text.endsWith(".0"))
             {
-                text = text.substring(0, text.length() - 2);
+                text = text.substring(0, text.length() - 2); //just show the integer part of it
             }
             return text;
         }
@@ -149,6 +155,7 @@ public class Interpreter implements Expression.Visitor<Object>
         return object.toString();
     }
 
+    //follows visitor design pattern and evaluates the curr expression
     private Object evaluate(Expression expr)
     {
         return expr.accept(this);

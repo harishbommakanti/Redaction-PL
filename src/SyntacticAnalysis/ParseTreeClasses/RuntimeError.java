@@ -2,7 +2,7 @@ package SyntacticAnalysis.ParseTreeClasses;
 
 import LexicalAnalysis.Token;
 
-class RuntimeError extends RuntimeException {
+public class RuntimeError extends RuntimeException {
     final Token token;
   
     RuntimeError(Token token, String message) {

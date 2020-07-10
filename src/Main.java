@@ -1,13 +1,13 @@
 import LexicalAnalysis.Lexer;
 import LexicalAnalysis.Token;
-import SyntacticAnalysis.*;
+import SyntacticAnalysis.ParserRecursiveDescent;
 import SyntacticAnalysis.ParseTreeClasses.AstPrinter;
 import SyntacticAnalysis.ParseTreeClasses.Expression;
+import SyntacticAnalysis.ParseTreeClasses.Interpreter;
+import SyntacticAnalysis.ParseTreeClasses.RuntimeError;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 //Main class for calling functions from other classes like Lexer and Parser
 //The 'landing page' of the compiler/interpreter(byte)
 public class Main
@@ -16,6 +16,10 @@ public class Main
     /*each entry will be of the following format:
       key: the name of the identifier
       value: a mapping of other satellite data for the variable, for now its just type and scope*/
+
+    private static final Interpreter interpreter = new Interpreter();
+    public static boolean hadError = false;
+    public static boolean hadRuntimeError = false;
 
     public static void main(String[] args) throws IOException
     {
@@ -32,10 +36,22 @@ public class Main
         //prs.parse();
 
         ParserRecursiveDescent parser = new ParserRecursiveDescent(tokenList);
-        Expression exp = parser.parse();
 
-        if (parser.hadError) return; //there was a syntax/parsing error
+        //add a String as a hacky way to allow ParserRecursiveDescent to modify boolean hadError
+        String errorStr = "false";
+        Expression exp = parser.parse(errorStr);
+        hadError = Boolean.parseBoolean(errorStr);
 
-        System.out.println(new AstPrinter().print(exp));
+        if (hadError) return; //there was a syntax/parsing error
+
+        //the AstPrinter was just to check if the visitor structure etc worked
+        //System.out.println(new AstPrinter().print(exp));
+        interpreter.interpret(exp);
+    }
+
+    static void runtimeError(RuntimeError error)
+    {
+        System.err.println(error.getMessage());
+        hadRuntimeError = true;
     }
 } 
