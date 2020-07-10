@@ -46,12 +46,9 @@ public class ParserRecursiveDescent
             return null;
         }
 
-        //else they are both present, continue with parsing the rest of file after popping the BOF/EOF tokens from the list
+        //else they are both present, continue with parsing the rest of file after popping the BOF token from the list.
+        //EOF token needed for logic in book.
         tokens.remove(0);
-        tokens.remove(tokens.size()-1);
-
-        //add another EOF token to try and satisfy compiler
-        tokens.add(new Token("EOF"));
 
         try
         {
@@ -333,7 +330,7 @@ public class ParserRecursiveDescent
     //returns whether the parser has reached the end of the file
     private boolean isAtEnd()
     {
-        return peek().name.equals("EOF");
+        return peek().name.equals("PROGRAM_END");
     } //no token left
 
     //returns the current token

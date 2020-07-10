@@ -33,35 +33,42 @@ public class Interpreter implements Expression.Visitor<Object>
         {
             case "GREATER_THAN":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left > (double)right;
+                return Double.parseDouble((String)left) > Double.parseDouble((String)right);
             case "GREATER_OR_EQUAL_TO":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left >= (double)right;
+                return Double.parseDouble((String)left) >= Double.parseDouble((String)right);
             case "LESS_THAN":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left < (double)right;
+                return Double.parseDouble((String)left) < Double.parseDouble((String)right);
             case "LESS_OR_EQUAL_TO":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left <= (double)right;
+                return Double.parseDouble((String)left) <= Double.parseDouble((String)right);
             case "MINUS":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left - (double)right;
+                return Double.parseDouble((String)left) - Double.parseDouble((String)right);
             case "PLUS":
-                if (left instanceof Double && right instanceof Double)
+                //2 cases, either they are numbers or strings, check
+                try
                 {
-                    return (double)left + (double)right;
-                }
-                if (left instanceof String && right instanceof String)
+                    //the case that they are numbers
+                    return Double.parseDouble((String)left) + Double.parseDouble((String)right);
+                } catch(Exception e) { }
+
+                try
                 {
-                  return (String)left + (String)right;
-                }
+                    //the case that they are strings
+                    //if not, they are strings;
+                    return (String)left + right;
+                } catch(Exception e) {}
+
+                //else, return a runtime error
                 throw new RuntimeError(expr.operator,"Operands must be two numbers or two strings.");
             case "DIVIDE":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left / (double)right;
+                return Double.parseDouble((String)left) / Double.parseDouble((String)right);
             case "MULTIPLY":
                 checkNumberOperands(expr.operator, left, right);
-                return (double)left * (double)right;
+                return Double.parseDouble((String)left) * Double.parseDouble((String)right);
             case "NOT_EQUAL_TO":
                 return !isEqual(left, right);
             case "CONDITIONAL_EQUALS":
@@ -98,7 +105,7 @@ public class Interpreter implements Expression.Visitor<Object>
                 return !isTruthy(right);
             case "MINUS":
                 checkNumberOperand(expr.operator, right);
-                return -(double) right;
+                return -1*Double.parseDouble((String)right);
         }
 
         // Unreachable.
@@ -107,24 +114,41 @@ public class Interpreter implements Expression.Visitor<Object>
 
     private void checkNumberOperand(Token operator, Object operand)
     {
-        if (operand instanceof Double)
-            return;
-        throw new RuntimeError(operator, "Operand must be a number.");
+        //if (operand instanceof Double) return;
+        //see if they can be parsed into integers or doubles
+        try
+        {
+            Double.parseDouble((String)operand);
+        } catch (Exception e)
+        {
+            throw new RuntimeError(operator, "Operand must be a number.");
+        }
     }
 
     private void checkNumberOperands(Token operator,Object left, Object right)
     {
-        if (left instanceof Double && right instanceof Double)
-            return;
-        throw new RuntimeError(operator, "Operands must be numbers.");
+        try
+        {
+            Double.parseDouble((String)left);
+            Double.parseDouble((String)right);
+        } catch (Exception e)
+        {
+            throw new RuntimeError(operator, "Operands must be numbers: " + left + right);
+        }
+        //if ((left instanceof Integer || left instanceof Double) && (right instanceof Integer || right instanceof Double))
+        //    return;
     }
 
     //an object to see if an object is 'falsey' or 'truthey', handwavey definitions to define empty/null/bool values
     private boolean isTruthy(Object object)
     {
-        if (object == null) return false;
-        if (object instanceof Boolean) return (boolean)object;
-        return true;
+        if (object == null) return false; //null objects are usually not treated as true
+        try{
+            return Boolean.parseBoolean((String)object); //if its a boolean string, return it
+        } catch(Exception e)
+        {
+            return true; //else just return true to avoid headache like in javascript
+        }
     }
 
     //simple utility methods to check if 2 objects are equal to eachother
@@ -142,7 +166,7 @@ public class Interpreter implements Expression.Visitor<Object>
     {
         if (object == null) return "null";
         // Hack. Work around Java adding ".0" to integer-valued doubles.
-        if (object instanceof Double)
+        /*if (object instanceof Double)
         {
             String text = object.toString();
             if (text.endsWith(".0"))
@@ -150,7 +174,7 @@ public class Interpreter implements Expression.Visitor<Object>
                 text = text.substring(0, text.length() - 2); //just show the integer part of it
             }
             return text;
-        }
+        }*/ //who cares if java adds the .0
 
         return object.toString();
     }
