@@ -60,7 +60,7 @@ public class Redaction_Main {
         BufferedReader reader = new BufferedReader(input);
 
         for (;;) {
-            System.out.print("⤷ ");
+            System.out.print("<redact> ::= ");
             String line = reader.readLine();
             if (line.equals("begone thot")){
                 System.out.println("Thot has begone, program has terminated.");
