@@ -16,7 +16,7 @@ public enum TokenType {
 
     // Keywords.
     AND, ELSE, ELIF, FALSE, FUNC, LOOP, FROM, IF, NULL, OR,
-    PRINT, RETURN, TRUE, LET, WHILE, CONST,
+    PRINT, RETURN, TRUE, LET, WHILE, CONST, BEGIN, END,
 
     EOF
 }
