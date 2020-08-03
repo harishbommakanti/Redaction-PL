@@ -1,6 +1,5 @@
-let a = 2;
-
-if(a == 2 and 1 == 2)
+loop(let a = 0; a <= 20; a = a+2)
 {
-    print("a equals 2 and 1 == 1");
+
+    print(a);
 }
