@@ -60,8 +60,12 @@ public class Redaction_Main {
         BufferedReader reader = new BufferedReader(input);
 
         for (;;) {
-            System.out.print("¯\\_(ツ)_/¯ 〉");
+            System.out.print("⤷ ");
             String line = reader.readLine();
+            if (line.equals("begone thot")){
+                System.out.println("Thot has begone, program has terminated.");
+                System.exit(0);
+            }
             if (line == null) break;
             run(line);
             hadError = false;
