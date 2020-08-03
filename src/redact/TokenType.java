@@ -3,7 +3,7 @@ package redact;
 public enum TokenType {
     // Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
-    MINUS, PLUS, SEMICOLON, DIVIDE, MULTIPLY,
+    MINUS, PLUS, SEMICOLON, DIVIDE, MULTIPLY, MODULUS,
 
     // One or two character tokens.
     NOT, NOT_EQUAL,

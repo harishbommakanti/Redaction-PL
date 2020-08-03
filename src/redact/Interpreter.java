@@ -188,6 +188,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                     return (String)left + (String)right;
                 }
                 throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
+
             case DIVIDE:
                 checkNumberOperands(expr.operator, left, right);
                 return (double)left / (double)right;
@@ -201,6 +202,29 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         // Unreachable.
         return null;
     }
+
+    /*private double modFunc(Object a, Object b)
+    {
+        double num1 = (double)a;
+        double num2 = (double)b;
+        if (num1 < 0)
+            num1 = -num1;
+        if (num2 < 0)
+            num2 = -num2;
+
+        // Finding mod by repeated subtraction
+        double mod = num1;
+        while (mod >= num2)
+            mod = mod - num2;
+
+        // Sign of result typically depends
+        // on sign of a.
+        if (num1 < 0)
+            return -mod;
+
+        return mod;
+    }*/
+
 
     private void checkNumberOperands(Token operator,
                                      Object left, Object right) {

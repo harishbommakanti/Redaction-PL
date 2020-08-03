@@ -1,5 +1,4 @@
 loop(let a = 0; a <= 20; a = a+2)
 {
-
     print(a);
 }
