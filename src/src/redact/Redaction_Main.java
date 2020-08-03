@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class Redaction_Main {
     static boolean hadError = false;
@@ -15,6 +16,26 @@ public class Redaction_Main {
 
     public static void main(String[] args) throws IOException {
 
+        Scanner s = new Scanner(System.in); //java scanner to allow for input BTW
+        boolean continueLanguage = true;
+        while(continueLanguage){
+            System.out.print("Enter file path or type \"REDACT\" to enter scripting :: ");
+            String filepath = s.next();
+            if(filepath.equals("REDACT")) {
+                System.out.println("Press ctrl+c to exit scripting. To use again, you will have to rerun the main file");
+                runPrompt();
+            } else
+                runFile(filepath);
+
+            System.out.print("Do you want to continue? Y or N :: ");
+            String continuance = s.next();
+
+            if(continuance.toUpperCase().equals("N"))
+                continueLanguage = false;
+        }
+
+
+        /*
         if (args.length > 1) {
             System.out.println("Usage: redaction [script]");
             System.exit(64);
@@ -22,7 +43,7 @@ public class Redaction_Main {
             runFile(args[0]);
         } else {
             runPrompt();
-        }
+        }*/
     }
 
     public static void runFile(String path) throws IOException {
@@ -47,7 +68,7 @@ public class Redaction_Main {
     }
 
     public static void run(String s) {
-        Scanner scanner = new Scanner(s);
+        src.redact.Scanner scanner = new src.redact.Scanner(s);
         List<Token> tokens = scanner.scanTokens();
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();

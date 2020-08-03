@@ -19,7 +19,6 @@ public class GenerateAst {
                 "Literal  : Object value",
                 "Unary    : Token operator, Expr right"
         ));
-
     }
 
     private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
