@@ -1,7 +1,0 @@
-{begin}
-let a = 4 int
-let b = 6 int
-let c = a + b int
-let d = "hello" String
-let e = 'bye' char
-{end} 
