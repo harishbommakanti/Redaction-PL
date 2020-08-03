@@ -29,6 +29,7 @@ import java.util.Map;
         keywords.put("let",    TokenType.LET);
         keywords.put("const",    TokenType.CONST);
         keywords.put("while",  TokenType.WHILE);
+        keywords.put("return", TokenType.RETURN);
         keywords.put("from",    TokenType.FROM);
 
     }
@@ -57,6 +58,8 @@ import java.util.Map;
             case '}': addToken(TokenType.RIGHT_BRACE); break;
             case '-': addToken(TokenType.MINUS); break;
             case '+': addToken(TokenType.PLUS); break;
+            case ',': addToken(TokenType.COMMA); break;
+            case '.': addToken(TokenType.DOT); break;
             case ';': addToken(TokenType.SEMICOLON); break;
             case '*': addToken(TokenType.MULTIPLY); break;
             case '!': addToken(match('=') ? TokenType.NOT_EQUAL : TokenType.NOT); break;

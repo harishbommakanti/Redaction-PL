@@ -1,4 +1,13 @@
-loop(let a = 0; a <= 20; a = a+2)
-{
-    print(a);
+func makeCounter() {
+  let i = 0;
+  func count() {
+    i = i + 1;
+    print i;
+  }
+
+  return count;
 }
+
+let counter = makeCounter();
+counter();
+counter();
