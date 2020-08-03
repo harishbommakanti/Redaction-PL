@@ -71,17 +71,16 @@ public class Redaction_Main {
         src.redact.Scanner scanner = new src.redact.Scanner(s);
         List<Token> tokens = scanner.scanTokens();
         Parser parser = new Parser(tokens);
-        Expr expression = parser.parse();
+        List<Stmt> statements = parser.parse();
 
         // Stop if there was a syntax error.
         if (hadError) return;
-        interpreter.interpret(expression);
+        interpreter.interpret(statements);
         //System.out.println(new AstPrinter().print(expression));
     }
 
     static void runtimeError(RuntimeError error) {
-        System.err.println(error.getMessage() +
-                "\n[line " + error.token.line + "]");
+        System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
         hadRuntimeError = true;
     }
 
