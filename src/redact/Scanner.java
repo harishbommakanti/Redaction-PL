@@ -1,13 +1,11 @@
- package src.redact;
+ package redact;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static src.redact.TokenType.*;
-
-public class Scanner {
+ public class Scanner {
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
     private int start = 0;
@@ -17,21 +15,21 @@ public class Scanner {
 
     static {
         keywords = new HashMap<>();
-        keywords.put("and",    AND);
-        keywords.put("else",   ELSE);
-        keywords.put("false",  FALSE);
-        keywords.put("loop",    LOOP);
-        keywords.put("func",    FUNC);
-        keywords.put("if",     IF);
-        keywords.put("null",    NULL);
-        keywords.put("or",     OR);
-        keywords.put("print",  PRINT);
-        keywords.put("return", RETURN);
-        keywords.put("true",   TRUE);
-        keywords.put("let",    LET);
-        keywords.put("const",    CONST);
-        keywords.put("while",  WHILE);
-        keywords.put("from",    FROM);
+        keywords.put("and",    TokenType.AND);
+        keywords.put("else",   TokenType.ELSE);
+        keywords.put("false",  TokenType.FALSE);
+        keywords.put("loop",    TokenType.LOOP);
+        keywords.put("func",    TokenType.FUNC);
+        keywords.put("if",     TokenType.IF);
+        keywords.put("null",    TokenType.NULL);
+        keywords.put("or",     TokenType.OR);
+        keywords.put("print",  TokenType.PRINT);
+        keywords.put("return", TokenType.RETURN);
+        keywords.put("true",   TokenType.TRUE);
+        keywords.put("let",    TokenType.LET);
+        keywords.put("const",    TokenType.CONST);
+        keywords.put("while",  TokenType.WHILE);
+        keywords.put("from",    TokenType.FROM);
 
     }
 
@@ -46,31 +44,31 @@ public class Scanner {
             scanToken();
         }
 
-        tokens.add(new Token(EOF, "", null, line));
+        tokens.add(new Token(TokenType.EOF, "", null, line));
         return tokens;
     }
 
     private void scanToken() {
         char c = advance();
         switch (c) {
-            case '(': addToken(LEFT_PAREN); break;
-            case ')': addToken(RIGHT_PAREN); break;
-            case '{': addToken(LEFT_BRACE); break;
-            case '}': addToken(RIGHT_BRACE); break;
-            case '-': addToken(MINUS); break;
-            case '+': addToken(PLUS); break;
-            case ';': addToken(SEMICOLON); break;
-            case '*': addToken(MULTIPLY); break;
-            case '!': addToken(match('=') ? NOT_EQUAL : NOT); break;
-            case '=': addToken(match('=') ? EQUAL_EQUAL : EQUAL); break;
-            case '<': addToken(match('=') ? LESS_EQUAL : LESS); break;
-            case '>': addToken(match('=') ? GREATER_EQUAL : GREATER); break;
+            case '(': addToken(TokenType.LEFT_PAREN); break;
+            case ')': addToken(TokenType.RIGHT_PAREN); break;
+            case '{': addToken(TokenType.LEFT_BRACE); break;
+            case '}': addToken(TokenType.RIGHT_BRACE); break;
+            case '-': addToken(TokenType.MINUS); break;
+            case '+': addToken(TokenType.PLUS); break;
+            case ';': addToken(TokenType.SEMICOLON); break;
+            case '*': addToken(TokenType.MULTIPLY); break;
+            case '!': addToken(match('=') ? TokenType.NOT_EQUAL : TokenType.NOT); break;
+            case '=': addToken(match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL); break;
+            case '<': addToken(match('=') ? TokenType.LESS_EQUAL : TokenType.LESS); break;
+            case '>': addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER); break;
             case '/':
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
                 } else {
-                    addToken(DIVIDE);
+                    addToken(TokenType.DIVIDE);
                 }
                 break;
             case ' ':
@@ -102,7 +100,7 @@ public class Scanner {
         String text = source.substring(start, current);
 
         TokenType type = keywords.get(text);
-        if (type == null) type = IDENTIFIER;
+        if (type == null) type = TokenType.IDENTIFIER;
         addToken(type);
     }
 
@@ -131,7 +129,7 @@ public class Scanner {
             while (isDigit(peek())) advance();
         }
 
-        addToken(NUMBER,
+        addToken(TokenType.NUMBER,
                 Double.parseDouble(source.substring(start, current)));
     }
 
@@ -157,7 +155,7 @@ public class Scanner {
 
         // Trim the surrounding quotes.
         String value = source.substring(start + 1, current - 1);
-        addToken(STRING, value);
+        addToken(TokenType.STRING, value);
     }
 
     private char peek() {

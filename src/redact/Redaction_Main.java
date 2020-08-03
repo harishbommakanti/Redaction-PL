@@ -1,4 +1,4 @@
-package src.redact;
+package redact;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,7 +68,7 @@ public class Redaction_Main {
     }
 
     public static void run(String s) {
-        src.redact.Scanner scanner = new src.redact.Scanner(s);
+        redact.Scanner scanner = new redact.Scanner(s);
         List<Token> tokens = scanner.scanTokens();
         Parser parser = new Parser(tokens);
         List<Stmt> statements = parser.parse();

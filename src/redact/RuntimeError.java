@@ -1,4 +1,4 @@
-package src.redact;
+package redact;
 
 class RuntimeError extends RuntimeException {
     final Token token;

@@ -1,4 +1,4 @@
-package src.redact;
+package redact;
 
 public enum TokenType {
     // Single-character tokens.

@@ -1,4 +1,4 @@
-package src.redact;
+package redact;
 
 public class Token {
     final TokenType type;
