@@ -1,6 +1,6 @@
 let a = 2;
 
-if(a == 2)
+if(a == 2 and 1 == 2)
 {
-    print("a equals 2");
+    print("a equals 2 and 1 == 1");
 }
