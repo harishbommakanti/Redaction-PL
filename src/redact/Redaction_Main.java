@@ -1,4 +1,5 @@
 package redact;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,7 +60,7 @@ public class Redaction_Main {
         BufferedReader reader = new BufferedReader(input);
 
         for (;;) {
-            System.out.print("> ");
+            System.out.print("¯\\_(ツ)_/¯ 〉");
             String line = reader.readLine();
             if (line == null) break;
             run(line);
