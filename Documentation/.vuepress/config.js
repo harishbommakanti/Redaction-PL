@@ -4,6 +4,7 @@ module.exports = {
     title: 'The Redaction Programming Language',
 
     themeConfig: {
+        search: false,
         displayAllHeaders: true,
         smoothScroll: true,
 

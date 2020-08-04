@@ -1,3 +1,6 @@
+---
+sidebarDepth: 2
+---
 # Syntax
 
 ## Variable Declaration and Reassignment
@@ -47,7 +50,7 @@ print(a);
 ## Conditional Statements
 
 - `and` and `or` statements inspired by Python.
-- Uses 'truthy' logic shared by most languages, but tried to avoid Javascript's truthy logic ([see why](https://res.cloudinary.com/practicaldev/image/fetch/s--ZDtqrBOj--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://github.com/damiancipolat/redaction_vs_memes/blob/master/doc/redaction_thanks.png%3Fraw%3Dtrue)).
+- Uses 'truthy' logic shared by most languages, but tried to avoid Javascript's truthy logic ([see why](https://i.redd.it/4skcofasa1p01.png)).
 
 ```redaction
 print "hi" or 2; // "hi"
@@ -108,3 +111,7 @@ let counter = makeCounter();
 counter(); // "1"
 counter(); // "2"
 ```
+
+<br><br><br>
+
+**Created by Zaid Maknojia and Harish Bommakanti**

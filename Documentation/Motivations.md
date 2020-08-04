@@ -1,3 +1,6 @@
+---
+sidebarDepth: 2
+---
 # Motivations
 
 Here are the main reasons that Redaction was created:
@@ -6,3 +9,7 @@ Here are the main reasons that Redaction was created:
 - Some of Java's nice features were required curly braces for functions, loops, and if statements, as well as semicolons, so we included them in Redaction.
 - We liked the idea of implicit type casting in Python and Javascript, especially as manually typing out `let a = 5 type int;` is rather tiresome for such a small scripting language.
 - ~~We were looking for a summer project.~~
+
+<br><br><br>
+
+**Created by Zaid Maknojia and Harish Bommakanti**
