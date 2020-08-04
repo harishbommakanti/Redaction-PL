@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Redaction_Main {
@@ -16,7 +18,15 @@ public class Redaction_Main {
 
 
     public static void main(String[] args) throws IOException {
+        if (args.length == 0)
+        {
+            System.out.println("\nWelcome to the Interactive Interpreter for Redaction.\n>The interactive interpreter currently does not support multi line if statements or functions.\n>Use `exit()` to exit scripting.\n");
+            runPrompt();
+        }
+        else
+            runFile(args[0].toString());
 
+        /*
         Scanner s = new Scanner(System.in); //java scanner to allow for input BTW
         boolean continueLanguage = true;
         while(continueLanguage){
@@ -29,30 +39,28 @@ public class Redaction_Main {
                 runFile(filepath);
 
             System.out.print("Do you want to continue? Y or N :: ");
-            String continuance = s.next();
+            String continuance = s.next().toUpperCase();
 
-            if(continuance.toUpperCase().equals("N"))
+            if(continuance.equals("N") || continuance.equals("EXIT()"))
                 continueLanguage = false;
         }
-
-
-        /*
-        if (args.length > 1) {
-            System.out.println("Usage: redaction [script]");
-            System.exit(64);
-        } else if (args.length == 1) {
-            runFile(args[0]);
-        } else {
-            runPrompt();
-        }*/
+        */
     }
 
-    public static void runFile(String path) throws IOException {
-        byte[] bytes = Files.readAllBytes(Paths.get(path));
+    public static void runFile(String path) {
+        System.out.printf("\nOutput for \'%s\':\n\n",path);
+        byte[] bytes = null;
+        try {
+            bytes = Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            System.out.println("File not found. Make sure the directory is correct.");
+        }
+
         run(new String(bytes, Charset.defaultCharset()));
         if (hadError) System.exit(65);
         if (hadRuntimeError) System.exit(70);
 
+        System.out.println("Program Terminated.");
     }
 
     public static void runPrompt() throws IOException {
@@ -62,8 +70,12 @@ public class Redaction_Main {
         for (;;) {
             System.out.print("<redact> ::= ");
             String line = reader.readLine();
-            if (line.equals("begone thot")){
-                System.out.println("Thot has begone, program has terminated.");
+            if (line.toLowerCase().equals("exit()"))
+            {
+                System.out.println("Program terminated.");
+                System.exit(0);
+            } else if (line.equals("begone thot")){
+                System.out.println("Thot has begone. Program Terminated.");
                 System.exit(0);
             }
             if (line == null) break;
