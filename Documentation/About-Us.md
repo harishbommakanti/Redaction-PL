@@ -3,14 +3,6 @@ sidebarDepth: 2
 ---
 # About Us
 
-
-<div style='display:flexbox; align-items:baseline'>
-    <div style="width:.5">
-    </div>
-    <div style="width:.5">
-    </div>
-</div>
-
 ## Zaid Maknojia
 Hey! My name is Zaid Maknojia and I will be an undergraduate student at Texas A&M studying Computer Science and Mathematics. I am always seeking opportunities to learn and grow, not only as an aspiring computer scientist, but also a person. I am proficient in Java, Python, and JavaScript and am very interested in software engineering. I look for feedback and input on how to improve the work that I do. Please feel free to reach out to me for any question and other opportunities. I look forward to meeting you.
 
@@ -29,8 +21,6 @@ Hey! My name is Zaid Maknojia and I will be an undergraduate student at Texas A&
 <p style= 'width: 50%'>Email:</p>
 <a href="mailto: zmaknojia20@tamu.edu">zmaknojia20@tamu.edu</a>
 </div>
-
-<hr>
 
 ## Harish Bommakanti
 Hey, I'm an undergraduate student at the University of Texas at Austin with a double major in Computer Science and Mathematics. My interests lie in software engineering, robotics, machine learning, and research, but through this project, I've also become interested the design behind programming languages. I'm always looking for productive criticism and feedback to help my work be the best that it can be. Please feel free to reach out to me for any question and other opportunities.
