@@ -14,15 +14,20 @@ sidebarDepth: 2
 
 > Scroll to find WSL, check the box, and then install it. Once done, one has to reboot to finish installing the requested changes. Press Restart now.
 
-### MacOS or Linux Distributions**
+### MacOS or Linux Distributions
 - No problem, just pull up a terminal screen.
 
 ## Installation
+Check out our code on either [https://github.com/zmaknojia20/RPL](https://github.com/zmaknojia20/RPL) or [https://github.com/harbom/Redaction-Programming-Language](https://github.com/harbom/Redaction-Programming-Language).
+
+Or, download the files here: <a href="./Redaction.zip" download>Click to Download Redaction Files</a>
+
+You'll need both the bash script and the JAR application to be in the same directory.
 
 ## Usage
 Redaction is meant to run through a command line interface (CLI). It's main file is a bash script.
 
-When running a file, note that the filename takes both relative and absolute path arguments. So it doesn't matter if you specify something from `C://Users...` on Windows or `/home/user/...` on Linux (absolute path), or `filename.redact`.
+When running a file, note that the filename takes both relative and absolute path arguments. So it doesn't matter if you specify something from `C://Users...` on Windows or `/home/user/...` on Linux (absolute path), or `filename.redact` (relative path to current directory).
 
 ### Windows
 Since WSL is installed, you have 2 options.
