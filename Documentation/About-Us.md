@@ -4,7 +4,7 @@ sidebarDepth: 2
 # About Us
 
 ## Zaid Maknojia
-Hey! My name is Zaid Maknojia and I will be an undergraduate student at Texas A&M studying Computer Science and Mathematics. I am always seeking opportunities to learn and grow, not only as an aspiring computer scientist, but also a person. I am proficient in Java, Python, and JavaScript and am very interested in software engineering. I look for feedback and input on how to improve the work that I do. Please feel free to reach out to me for any question and other opportunities. I look forward to meeting you.
+Hey! I will be an undergraduate student at Texas A&M studying Computer Science and Mathematics. I am always seeking opportunities to learn and grow, not only as an aspiring computer scientist, but also a person. I am proficient in Java, Python, and JavaScript and am very interested in software engineering. I look for feedback and input on how to improve the work that I do. Please feel free to reach out to me for any question and other opportunities. I look forward to meeting you.
 
 ### Contact Zaid
 <div style="display: flex; align-items:baseline">
